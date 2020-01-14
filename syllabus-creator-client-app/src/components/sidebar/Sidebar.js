@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./Sidebar.css";
+import { Link } from "react-router-dom";
 
 class Sidebar extends Component {
   render() {
@@ -8,7 +9,7 @@ class Sidebar extends Component {
         <div className="sidebar-sticky">
           <ul className="nav flex-column">
             <li className="nav-item">
-              <a className="nav-link active" href="https://localhost:3000/">
+              <Link className="nav-link active" to={"/dashboard"}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -24,11 +25,11 @@ class Sidebar extends Component {
                   <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                   <polyline points="9 22 9 12 15 12 15 22"></polyline>
                 </svg>
-                Dashboard <span className="sr-only">(current)</span>
-              </a>
+                Dashboard
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="https://localhost:3000/">
+              <Link className="nav-link" to={"/profile"}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -45,10 +46,10 @@ class Sidebar extends Component {
                   <circle cx="12" cy="7" r="4" />
                 </svg>
                 Profile
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="https://localhost:3000/">
+              <Link className="nav-link" to={"/routine"}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -67,10 +68,10 @@ class Sidebar extends Component {
                   <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
                 </svg>
                 Routines
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="https://localhost:3000/">
+              <Link className="nav-link" to={"/syllabus"}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -87,10 +88,10 @@ class Sidebar extends Component {
                   <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
                 </svg>
                 Syllabus
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="https://localhost:3000/">
+              <Link className="nav-link" to={"/result"}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -110,10 +111,10 @@ class Sidebar extends Component {
                   <path d="M10 9H8" />
                 </svg>
                 Results
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="https://localhost:3000/">
+              <Link className="nav-link" to={"/tasks"}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -131,7 +132,7 @@ class Sidebar extends Component {
                   <polyline points="2 12 12 17 22 12"></polyline>
                 </svg>
                 Tasks
-              </a>
+              </Link>
             </li>
           </ul>
 
