@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./Sidebar.css";
 import { Link } from "react-router-dom";
+import Divider from "@material-ui/core/Divider";
 
 class Sidebar extends Component {
   render() {
@@ -160,6 +161,7 @@ class Sidebar extends Component {
               </svg>
             </a>
           </h6>
+          <Divider />
           <ul className="nav flex-column mb-2">
             <li className="nav-item">
               <a className="nav-link" href="https://localhost:3000/">
