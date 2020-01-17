@@ -21,7 +21,7 @@ class Sidebar extends Component {
       >
         <Nav accessKey={location.pathname}>
           <div className="sidebar-sticky">
-            <Nav.Item className="nav-item" activeClassName="active">
+            <Nav.Item className="nav-item">
               <MenuDashboard />
             </Nav.Item>
             <Nav.Item className="nav-item">
