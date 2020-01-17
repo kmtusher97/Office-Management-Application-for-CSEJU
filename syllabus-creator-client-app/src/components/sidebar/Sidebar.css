@@ -28,12 +28,18 @@
   color: #999;
 }
 
-.sidebar .nav-link.active {
+.sidebar .nav-link:active {
   color: #007bff;
 }
 
-.sidebar .nav-link:hover .feather,
-.sidebar .nav-link.active .feather {
+.nav-link:focus,
+.nav-link:hover {
+  text-decoration: none;
+  background-color: #adb5bd;
+}
+
+.nav-link:hover .feather,
+.nav-link.active .feather {
   color: inherit;
 }
 
