@@ -24,26 +24,6 @@ var NavItemStyle = {
   color: "#333"
 };
 
-var SideNavbarStyle = {
-  sidebar: {
-    position: "fixed",
-    top: "0",
-    bottom: "0",
-    left: "0",
-    zIndex: "100",
-    padding: "0",
-    boxShadow: "inset -1px 0 0 rgba(0, 0, 0, 0.1)"
-  },
-  sidebar_sticky: {
-    position: "sticky",
-    top: "48px",
-    height: "calc(100vh - 48px)",
-    paddingTop: "0.5rem",
-    overflowX: "hidden",
-    overflowY: "auto"
-  }
-};
-
 class SideNavbar extends Component {
   render() {
     return (
