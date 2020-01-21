@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./Header.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Navbar, Nav, NavItem, Image } from "react-bootstrap";
 
@@ -7,7 +8,13 @@ import headerData from "./HeaderData";
 class Header extends Component {
   render() {
     return (
-      <Navbar collapseOnSelect expand="lg" bg="lg" variant="light">
+      <Navbar
+        collapseOnSelect
+        expand="md"
+        bg="light"
+        variant="light"
+        className="header"
+      >
         <Navbar.Brand href={headerData.brandLink}>
           <Image
             src={headerData.brandLogo}
@@ -19,6 +26,7 @@ class Header extends Component {
           />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+
         <Navbar.Collapse className="responsive-navbar-nav">
           <Nav
             className="mr-auto"
@@ -26,12 +34,8 @@ class Header extends Component {
             defaultActiveKey={window.location.pathname}
           >
             {headerData.menus.map((menu, idxHeaderMenu) => (
-              <NavItem key={idxHeaderMenu}>
-                <Nav.Link
-                  href={menu.link}
-                  eventKey={menu.link}
-                  style={{ fontColor: "blue" }}
-                >
+              <NavItem key={idxHeaderMenu} className="left_nav">
+                <Nav.Link href={menu.link} eventKey={menu.link}>
                   {menu.name}
                 </Nav.Link>
               </NavItem>
