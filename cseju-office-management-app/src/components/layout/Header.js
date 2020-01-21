@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Navbar, Nav, NavDropdown, NavItem, Image } from "react-bootstrap";
+import { Navbar, Nav, NavItem, Image } from "react-bootstrap";
 
 import headerData from "./HeaderData";
 
@@ -40,7 +40,7 @@ class Header extends Component {
           <Nav>
             {headerData.rightSideMenus.map((menu, idxRgtHeaderMenus) => (
               <NavItem key={idxRgtHeaderMenus}>
-                <Nav.Link to={menu.link} style={{ paddingRight: "50px" }}>
+                <Nav.Link href={menu.link} style={{ paddingRight: "50px" }}>
                   <FontAwesomeIcon icon={menu.icon} size="lg" />
                 </Nav.Link>
               </NavItem>
