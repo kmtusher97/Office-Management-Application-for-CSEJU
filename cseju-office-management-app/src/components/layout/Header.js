@@ -13,7 +13,7 @@ class Header extends Component {
         expand="md"
         bg="light"
         variant="light"
-        className="header"
+        className="shadow p-3 mb-5 bg-white rounded header"
       >
         <Navbar.Brand href={headerData.brandLink}>
           <Image
@@ -29,7 +29,7 @@ class Header extends Component {
 
         <Navbar.Collapse className="responsive-navbar-nav">
           <Nav
-            className="mr-auto"
+            className="mr-auto "
             variant="tabs"
             defaultActiveKey={window.location.pathname}
           >
