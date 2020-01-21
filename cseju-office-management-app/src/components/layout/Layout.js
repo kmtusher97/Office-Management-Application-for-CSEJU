@@ -1,15 +1,14 @@
 import React, { Component } from "react";
+import "./Layout.css";
 import Routing from "../../route/Routing";
 import Header from "./Header";
 import { Row, Col } from "react-bootstrap";
-
-const headerRowStyle = { padding: "5px" };
 
 class Layout extends Component {
   render() {
     return (
       <div className="fluid">
-        <Row style={headerRowStyle}>
+        <Row className="header_container">
           <Col md="12">
             <Header />
           </Col>
