@@ -1,29 +1,15 @@
-import React, { Suspense, Component } from "react";
+import React, { Component } from "react";
 import "./App.css";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-
-import routes from "./Routes";
+import { BrowserRouter } from "react-router-dom";
+import Routing from "./route/Routing";
 
 class App extends Component {
-  loading = () => <div className="animated">Loading...</div>;
   render() {
     return (
       <BrowserRouter>
         <div className="App">
           <main className="main">
-            <Suspense fallback={this.loading()}>
-              <Switch>
-                {routes.map((route, idx) => (
-                  <Route
-                    key={idx}
-                    path={route.path}
-                    exact={route.exact}
-                    component={route.component}
-                  ></Route>
-                ))}
-                <Redirect from="/" to="/dashboard" />
-              </Switch>
-            </Suspense>
+            <Routing />
           </main>
         </div>
       </BrowserRouter>
