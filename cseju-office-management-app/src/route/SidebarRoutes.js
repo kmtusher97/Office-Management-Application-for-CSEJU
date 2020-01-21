@@ -8,7 +8,7 @@ const routes = {
   sidebarRoutes: [
     {
       path: "/syllabus",
-      exact: true,
+      exact: false,
       name: "SyllabusMenubar",
       component: SyllabusMenubar
     }
