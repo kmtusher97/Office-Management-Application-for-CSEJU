@@ -30,9 +30,15 @@ const routes = [
   },
   {
     path: "/dashboard",
-    exact: false,
+    exact: true,
     name: "Dashboard",
     component: Dashboard
+  },
+  {
+    path: "/syllabus",
+    exact: true,
+    name: "Syllabus",
+    component: Syllabus
   },
   {
     path: "/routine",
@@ -47,33 +53,26 @@ const routes = [
     component: Notification
   },
   {
-    path: "/syllabus",
-    exact: true,
-    name: "Syllabus",
-    component: Syllabus
-  },
-
-  {
     path: "/syllabus/create",
-    exact: false,
+    exact: true,
     name: "SyllabusCreator",
     component: SyllabusCreator
   },
   {
     path: "/syllabus/course/types",
-    exact: false,
+    exact: true,
     name: "SyllabusCourseTypeCreator",
     component: SyllabusCourseTypeCreator
   },
   {
     path: "/syllabus/edit/course",
-    exact: false,
+    exact: true,
     name: "SyllabusCourseEditor",
     component: SyllabusCourseEditor
   },
   {
     path: "/syllabus/view",
-    exact: false,
+    exact: true,
     name: "SyllabusViewer",
     component: SyllabusViewer
   }

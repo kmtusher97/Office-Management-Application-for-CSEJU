@@ -1,5 +1,5 @@
 import React, { Component, Suspense } from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 
 import routes from "./SidebarRoutes";
 
@@ -17,7 +17,6 @@ class SidebarRouting extends Component {
               component={route.component}
             ></Route>
           ))}
-          <Redirect from="/" to="/dashboard" />
         </Switch>
       </Suspense>
     );

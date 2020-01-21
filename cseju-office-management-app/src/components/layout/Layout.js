@@ -21,8 +21,10 @@ class Layout extends Component {
             </Container>
           </Col>
           <Col md={10}>
-            <main className="main">
-              <Routing />
+            <main className="main shadow p-2 mb-1 bg-white rounded">
+              <div className="workspace fluid">
+                <Routing />
+              </div>
             </main>
           </Col>
         </Row>
