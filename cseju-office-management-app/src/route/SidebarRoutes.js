@@ -9,7 +9,7 @@ const routes = {
     {
       path: "/syllabus",
       exact: true,
-      name: "Dashboard",
+      name: "SyllabusMenubar",
       component: SyllabusMenubar
     }
   ]
