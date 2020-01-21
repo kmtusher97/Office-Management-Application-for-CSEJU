@@ -14,19 +14,13 @@ var syllabusMenus = {
     },
     {
       name: "Edit Course",
-      link: "/syllabus/edit",
+      link: "/syllabus/edit/course",
       userRole: "TEACHER",
       icon: ""
     },
     {
       name: "View Syllabus",
       link: "/syllabus/view",
-      userRole: "USER",
-      icon: ""
-    },
-    {
-      name: "Archive",
-      link: "/syllabus/archive",
       userRole: "USER",
       icon: ""
     }
