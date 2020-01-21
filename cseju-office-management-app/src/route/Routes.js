@@ -7,37 +7,39 @@ const Notification = React.lazy(() =>
   import("../components/views/Notification")
 );
 
-const routes = [
-  {
-    path: "/",
-    exact: true,
-    name: "Dashboard",
-    component: Dashboard
-  },
-  {
-    path: "/dashboard",
-    exact: false,
-    name: "Dashboard",
-    component: Dashboard
-  },
-  {
-    path: "/syllabus",
-    exact: true,
-    name: "Dashboard",
-    component: Syllabus
-  },
-  {
-    path: "/routine",
-    exact: true,
-    name: "Dashboard",
-    component: Routine
-  },
-  {
-    path: "/notification",
-    exact: true,
-    name: "Notification",
-    component: Notification
-  }
-];
+const routes = {
+  headerRoutes: [
+    {
+      path: "/",
+      exact: true,
+      name: "Dashboard",
+      component: Dashboard
+    },
+    {
+      path: "/dashboard",
+      exact: false,
+      name: "Dashboard",
+      component: Dashboard
+    },
+    {
+      path: "/syllabus",
+      exact: true,
+      name: "Syllabus",
+      component: Syllabus
+    },
+    {
+      path: "/routine",
+      exact: true,
+      name: "Routine",
+      component: Routine
+    },
+    {
+      path: "/notification",
+      exact: true,
+      name: "Notification",
+      component: Notification
+    }
+  ]
+};
 
 export default routes;
