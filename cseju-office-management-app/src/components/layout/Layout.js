@@ -20,9 +20,9 @@ class Layout extends Component {
               <Sidebar />
             </Container>
           </Col>
-          <Col md={10}>
-            <main className="main shadow p-2 mb-1 bg-white rounded">
-              <div className="workspace fluid">
+          <Col md={10} style={{ paddingLeft: "0px", paddingRight: "30px" }}>
+            <main className="main ">
+              <div className="workspace fluid shadow p-2 mb-1 bg-white rounded">
                 <Routing />
               </div>
             </main>
