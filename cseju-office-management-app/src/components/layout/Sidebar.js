@@ -5,10 +5,6 @@ import "./Sidebar.css";
 import SidebarRouting from "../../route/SidebarRouting";
 
 class Sidebar extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <Nav
