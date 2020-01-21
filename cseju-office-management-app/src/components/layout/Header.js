@@ -13,7 +13,7 @@ class Header extends Component {
         expand="md"
         bg="light"
         variant="light"
-        className="shadow p-3 mb-5 bg-white rounded header"
+        className="shadow p-2 mb-1 bg-white rounded header"
       >
         <Navbar.Brand href={headerData.brandLink}>
           <Image
