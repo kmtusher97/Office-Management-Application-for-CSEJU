@@ -21,65 +21,62 @@ const SyllabusViewer = React.lazy(() =>
   import("../components/views/SyllabusViewer")
 );
 
-const routes = {
-  headerRoutes: [
-    {
-      path: "/",
-      exact: true,
-      name: "Dashboard",
-      component: Dashboard
-    },
-    {
-      path: "/dashboard",
-      exact: false,
-      name: "Dashboard",
-      component: Dashboard
-    },
-    {
-      path: "/syllabus",
-      exact: true,
-      name: "Syllabus",
-      component: Syllabus
-    },
-    {
-      path: "/routine",
-      exact: true,
-      name: "Routine",
-      component: Routine
-    },
-    {
-      path: "/notification",
-      exact: true,
-      name: "Notification",
-      component: Notification
-    }
-  ],
-  sidebarRoutes: [
-    {
-      path: "/syllabus/create",
-      exact: true,
-      name: "SyllabusCreator",
-      component: SyllabusCreator
-    },
-    {
-      path: "/syllabus/course/types",
-      exact: true,
-      name: "SyllabusCourseTypeCreator",
-      component: SyllabusCourseTypeCreator
-    },
-    {
-      path: "/syllabus/edit/course",
-      exact: true,
-      name: "SyllabusCourseEditor",
-      component: SyllabusCourseEditor
-    },
-    {
-      path: "/syllabus/view",
-      exact: true,
-      name: "SyllabusViewer",
-      component: SyllabusViewer
-    }
-  ]
-};
+const routes = [
+  {
+    path: "/",
+    exact: true,
+    name: "Dashboard",
+    component: Dashboard
+  },
+  {
+    path: "/dashboard",
+    exact: false,
+    name: "Dashboard",
+    component: Dashboard
+  },
+  {
+    path: "/routine",
+    exact: true,
+    name: "Routine",
+    component: Routine
+  },
+  {
+    path: "/notification",
+    exact: true,
+    name: "Notification",
+    component: Notification
+  },
+  {
+    path: "/syllabus",
+    exact: true,
+    name: "Syllabus",
+    component: Syllabus
+  },
+
+  {
+    path: "/syllabus/create",
+    exact: false,
+    name: "SyllabusCreator",
+    component: SyllabusCreator
+  },
+  {
+    path: "/syllabus/course/types",
+    exact: false,
+    name: "SyllabusCourseTypeCreator",
+    component: SyllabusCourseTypeCreator
+  },
+  {
+    path: "/syllabus/edit/course",
+    exact: false,
+    name: "SyllabusCourseEditor",
+    component: SyllabusCourseEditor
+  },
+  {
+    path: "/syllabus/view",
+    exact: false,
+    name: "SyllabusViewer",
+    component: SyllabusViewer
+  }
+];
 
 export default routes;

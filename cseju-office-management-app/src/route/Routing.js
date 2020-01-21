@@ -9,7 +9,7 @@ class Routing extends Component {
     return (
       <Suspense fallback={this.loading()}>
         <Switch>
-          {routes.headerRoutes.map((route, idx) => (
+          {routes.map((route, idx) => (
             <Route
               key={idx}
               path={route.path}
