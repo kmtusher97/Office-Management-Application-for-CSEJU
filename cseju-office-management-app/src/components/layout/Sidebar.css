@@ -1,0 +1,14 @@
+.sidebar {
+  border: 2px solid #d1cfcb;
+  border-radius: 15px;
+  height: auto;
+  padding: 0;
+}
+
+a.nav-link {
+  font-size: 0.8rem;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: bold;
+  text-align: left;
+  padding: 5px;
+}
