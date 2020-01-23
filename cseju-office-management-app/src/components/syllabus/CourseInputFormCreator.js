@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Row, Col, Card, Container } from "react-bootstrap";
 import FormSection from "./courseInputFormComponents/FormSection";
+import SideMenusForForm from "./courseInputFormComponents/SideMenusForForm";
 
 class CourseInputFormCreator extends Component {
   constructor(props) {
@@ -58,6 +59,12 @@ class CourseInputFormCreator extends Component {
               )
             )}
           </Col>
+          <SideMenusForForm
+            formSideMenuData={{
+              syllabusName: this.state.syllabusName,
+              courseTypeName: this.state.courseTypeName
+            }}
+          />
         </Row>
       </Container>
     );
