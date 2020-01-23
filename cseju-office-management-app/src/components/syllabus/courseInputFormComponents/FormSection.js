@@ -3,10 +3,6 @@ import FormSectionTextArea from "./FormSectionTextArea";
 import FormSectionTable from "./FormSectionTable";
 
 class FormSection extends Component {
-  constructor(props) {
-    super(props);
-    console.log(this.props);
-  }
   render() {
     var resultComponent = null;
     if (this.props.formSectionData.formSection.selectedContent === "TextArea") {
