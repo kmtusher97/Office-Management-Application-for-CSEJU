@@ -59,13 +59,13 @@ const routes = [
     component: SyllabusCreator
   },
   {
-    path: "/syllabus/course/types",
+    path: "/syllabus/course_types",
     exact: true,
     name: "SyllabusCourseTypeCreator",
     component: SyllabusCourseTypeCreator
   },
   {
-    path: "/syllabus/edit/course",
+    path: "/syllabus/edit_course",
     exact: true,
     name: "SyllabusCourseEditor",
     component: SyllabusCourseEditor
