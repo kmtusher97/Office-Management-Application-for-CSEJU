@@ -42,7 +42,7 @@ class CourseInputFormCreator extends Component {
           <Col md={1}></Col>
           <Col
             md={10}
-            style={{ "overflow-y": "scroll", height: "580px", width: "auto" }}
+            style={{ overflowY: "scroll", height: "580px", width: "auto" }}
           >
             {this.state.courseInputForm.courseInputFormSections.map(
               (formSection, idx) => (
