@@ -46,8 +46,8 @@ class CourseInputFormCreator extends Component {
           >
             {this.state.courseInputForm.courseInputFormSections.map(
               (formSection, idx) => (
-                <div style={{ paddingTop: "10px" }}>
-                  <FormSection key={idx} formSectionData={formSection} />
+                <div key={idx} style={{ paddingTop: "10px" }}>
+                  <FormSection formSectionData={formSection} />
                 </div>
               )
             )}
