@@ -47,6 +47,7 @@ class SyllabusCourseTypeCreator extends Component {
                     <b>Add New Course Type</b>
                   </Form.Label>
                   <Form.Control
+                    key={"newCourseTypeNameInput"}
                     size="sm"
                     type="text"
                     placeholder="New Course Type"
