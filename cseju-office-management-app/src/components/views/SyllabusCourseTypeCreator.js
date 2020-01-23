@@ -33,13 +33,14 @@ class SyllabusCourseTypeCreator extends Component {
     return (
       <Container style={{ paddingTop: "15px" }}>
         <Row>
-          <Col md={8}>
+          <Col md={12}>
             <CourseTypeTable syllabusName={this.state.syllabusName} />
           </Col>
         </Row>
 
         <Row style={{ paddingTop: "30px" }}>
-          <Col md={4}>
+          <Col md={2}></Col>
+          <Col md={7}>
             <Card>
               <Form style={{ padding: "10px" }} onSubmit={this.handleSubmit}>
                 <Form.Group size="sm">
