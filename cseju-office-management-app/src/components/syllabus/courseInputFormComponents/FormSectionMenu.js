@@ -18,6 +18,13 @@ class FormSectionMenu extends Component {
     window.location.reload();
   };
 
+  deleteFormSection = event => {
+    let url = `http://localhost:8081/syllabus/create_form/${this.props.menubarData.syllabusName}/${this.props.menubarData.courseTypeName}/delete_section/${this.props.menubarData.contentId}`;
+
+    fetch(url, { method: "delete" });
+    window.location.reload();
+  };
+
   render() {
     return (
       <Container>
@@ -37,8 +44,13 @@ class FormSectionMenu extends Component {
         <Row style={{ paddingBottom: "5px", alignContent: "right" }}>
           <Col md={8}></Col>
           <Col md={2}>
-            <button>
-              <i className="fa fa-trash" style={{ color: "red" }}></i>
+            <button disabled>
+              <i
+                id={"formSectionDeleteButton"}
+                className="fa fa-trash"
+                style={{ color: "red" }}
+                onClick={this.deleteFormSection}
+              ></i>
             </button>
           </Col>
           <Col md={2} style={{ paddingLeft: "0px", paddingRight: "10px" }}>
