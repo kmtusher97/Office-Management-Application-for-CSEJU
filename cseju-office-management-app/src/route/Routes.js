@@ -21,6 +21,10 @@ const SyllabusViewer = React.lazy(() =>
   import("../components/views/SyllabusViewer")
 );
 
+const CourseInputFormCreator = React.lazy(() =>
+  import("../components/syllabus/CourseInputFormCreator")
+);
+
 const routes = [
   {
     path: "/",
@@ -75,6 +79,12 @@ const routes = [
     exact: true,
     name: "SyllabusViewer",
     component: SyllabusViewer
+  },
+  {
+    path: "/syllabus/course_types/design_form/:syllabusName/:courseTypeName",
+    exact: true,
+    name: "CourseInputFormCreator",
+    component: CourseInputFormCreator
   }
 ];
 
