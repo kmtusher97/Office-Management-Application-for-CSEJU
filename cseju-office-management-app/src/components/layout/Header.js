@@ -31,7 +31,12 @@ class Header extends Component {
           <Nav
             className="mr-auto "
             variant="tabs"
-            defaultActiveKey={window.location.pathname}
+            defaultActiveKey={
+              "/" +
+              window.location.pathname.match(
+                window.location.pathname.split("/")[1]
+              )[0]
+            }
           >
             {headerData.menus.map((menu, idxHeaderMenu) => (
               <NavItem key={idxHeaderMenu} className="left_nav">
