@@ -8,13 +8,13 @@ var syllabusMenus = {
     },
     {
       name: "Course Types",
-      link: "/syllabus/course/types",
+      link: "/syllabus/course_types",
       userRole: "SYLLABUS_COMMITTEE_CHAIRMAN",
       icon: ""
     },
     {
       name: "Edit Course",
-      link: "/syllabus/edit/course",
+      link: "/syllabus/edit_course",
       userRole: "TEACHER",
       icon: ""
     },
