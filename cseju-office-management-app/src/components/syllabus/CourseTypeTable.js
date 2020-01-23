@@ -67,7 +67,7 @@ export default class CourseTypeTable extends Component {
                     courseTypeName
                   }
                 >
-                  <button>
+                  <button disabled>
                     <i
                       id={idx}
                       className="fa fa-pencil"
@@ -77,7 +77,7 @@ export default class CourseTypeTable extends Component {
                 </Link>
               </td>
               <td>
-                <button>
+                <button disabled>
                   <i
                     id={idx}
                     onClick={this.deleteCourseType}
