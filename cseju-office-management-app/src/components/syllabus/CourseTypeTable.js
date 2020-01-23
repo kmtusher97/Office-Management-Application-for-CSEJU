@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { Table } from "react-bootstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faPen, faEye } from "@fortawesome/free-solid-svg-icons";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 export default class CourseTypeTable extends Component {
   constructor(props) {
@@ -57,13 +58,32 @@ export default class CourseTypeTable extends Component {
               <td>{idx + 1}</td>
               <td>{courseTypeName}</td>
               <td>
-                <button id={idx}>
-                  <FontAwesomeIcon icon={faPen} color="#3385ff" />
-                </button>
+                <Link
+                  id={idx}
+                  to={
+                    "/syllabus/course_types/design_form/" +
+                    this.props.syllabusName +
+                    "/" +
+                    courseTypeName
+                  }
+                >
+                  <button>
+                    <i
+                      id={idx}
+                      className="fa fa-pencil"
+                      style={{ color: "#3385ff" }}
+                    ></i>
+                  </button>
+                </Link>
               </td>
               <td>
-                <button id={idx} onClick={this.deleteCourseType}>
-                  <FontAwesomeIcon icon={faTrash} color="red" />
+                <button>
+                  <i
+                    id={idx}
+                    onClick={this.deleteCourseType}
+                    className="fa fa-trash"
+                    style={{ color: "red" }}
+                  />
                 </button>
               </td>
               <td>
