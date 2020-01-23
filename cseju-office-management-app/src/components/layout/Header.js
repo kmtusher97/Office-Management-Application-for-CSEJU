@@ -40,7 +40,11 @@ class Header extends Component {
           >
             {headerData.menus.map((menu, idxHeaderMenu) => (
               <NavItem key={idxHeaderMenu} className="left_nav">
-                <Nav.Link href={menu.link} eventKey={menu.link}>
+                <Nav.Link
+                  href={menu.link}
+                  eventKey={menu.link}
+                  style={{ fontSize: "12px" }}
+                >
                   {menu.name}
                 </Nav.Link>
               </NavItem>
