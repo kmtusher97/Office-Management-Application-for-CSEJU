@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Row, Col, Container } from "react-bootstrap";
 
+import AppData from "../../AppData";
+
 const contents = ["TextArea", "Table"];
 
 class FormSectionMenu extends Component {
@@ -12,14 +14,14 @@ class FormSectionMenu extends Component {
   }
 
   handleSelector = event => {
-    let url = `http://localhost:8081/syllabus/create_form/${this.props.menubarData.syllabusName}/${this.props.menubarData.courseTypeName}/${this.props.menubarData.contentId}/change_selected/${event.target.value}`;
+    let url = `${AppData.restApiBaseUrl}/syllabus/create_form/${this.props.menubarData.syllabusName}/${this.props.menubarData.courseTypeName}/${this.props.menubarData.contentId}/change_selected/${event.target.value}`;
 
     fetch(url);
     window.location.reload();
   };
 
   deleteFormSection = event => {
-    let url = `http://localhost:8081/syllabus/create_form/${this.props.menubarData.syllabusName}/${this.props.menubarData.courseTypeName}/delete_section/${this.props.menubarData.contentId}`;
+    let url = `${AppData.restApiBaseUrl}/syllabus/create_form/${this.props.menubarData.syllabusName}/${this.props.menubarData.courseTypeName}/delete_section/${this.props.menubarData.contentId}`;
 
     fetch(url, { method: "delete" });
     window.location.reload();
