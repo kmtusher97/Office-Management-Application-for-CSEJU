@@ -3,6 +3,7 @@ import { Card } from "react-bootstrap";
 import FormSectionMenu from "./FormSectionMenu";
 
 import AppData from "../../AppData";
+import { Table } from "react-bootstrap";
 
 class FormSectionTable extends Component {
   constructor(props) {
@@ -17,14 +18,29 @@ class FormSectionTable extends Component {
   }
 
   onChangeHandlerForTitle = event => {
-    var tempTable = this.state.table;
+    let tempTable = this.state.table;
     tempTable.title = event.target.value;
     this.setState({ textArea: tempTable });
   };
 
+  onChangeHandlerForFieldName = event => {
+    let tempTable = this.state.table;
+    tempTable.fields[event.target.id] = event.target.value;
+    this.setState({
+      table: tempTable
+    });
+  };
+
+  addFieldIntoTable = event => {
+    let url = `${AppData.restApiBaseUrl}/syllabus/create_form/${this.state.syllabusName}/${this.state.courseTypeName}/${this.state.table.tableId}/table/add_field`;
+    fetch(url);
+    window.location.reload();
+    event.preventDefault();
+  };
+
   /** auto save changes */
-  onBlurHandlerForTitle = event => {
-    var tmpCourseInputForm = this.state.courseInputForm;
+  onBlurHandler = event => {
+    let tmpCourseInputForm = this.state.courseInputForm;
     tmpCourseInputForm.courseInputFormSections[
       this.state.index
     ].table = this.state.table;
@@ -55,7 +71,7 @@ class FormSectionTable extends Component {
               className="form-control"
               value={this.state.table.title}
               onChange={this.onChangeHandlerForTitle}
-              onBlur={this.onBlurHandlerForTitle}
+              onBlur={this.onBlurHandler}
             />
           </div>
           <div
@@ -63,7 +79,52 @@ class FormSectionTable extends Component {
               padding: "5px",
               paddingBottom: "0px"
             }}
-          ></div>
+          >
+            <Table striped bordered hover size="sm">
+              <tbody>
+                <tr>
+                  {this.state.table.fields.map((field, fieldIdx) => (
+                    <td key={"field_" + fieldIdx}>
+                      <div>
+                        <input
+                          key={fieldIdx}
+                          id={fieldIdx}
+                          type="text"
+                          className="form-control"
+                          value={field}
+                          onChange={this.onChangeHandlerForFieldName}
+                          onBlur={this.onBlurHandler}
+                          style={{ fontSize: "11px" }}
+                        />
+                      </div>
+                    </td>
+                  ))}
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colSpan={this.state.table.fields.length}>
+                    <div className="col-sm-2">
+                      <button
+                        onClick={this.addFieldIntoTable}
+                        style={{
+                          borderRadius: "10px",
+                          backgroundColor: "green"
+                        }}
+                      >
+                        <span>
+                          <i
+                            className="fa fa-plus"
+                            style={{ color: "white" }}
+                          ></i>
+                        </span>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tfoot>
+            </Table>
+          </div>
           <FormSectionMenu
             menubarData={{
               syllabusName: this.state.syllabusName,
