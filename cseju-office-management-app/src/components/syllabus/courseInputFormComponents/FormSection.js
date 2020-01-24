@@ -11,7 +11,9 @@ class FormSection extends Component {
           textAreaData={{
             syllabusName: this.props.formSectionData.syllabusName,
             courseTypeName: this.props.formSectionData.courseTypeName,
-            textArea: this.props.formSectionData.formSection.textArea
+            courseInputForm: this.props.formSectionData.courseInputForm,
+            textArea: this.props.formSectionData.formSection.textArea,
+            index: this.props.formSectionData.index
           }}
         />
       );
@@ -23,7 +25,9 @@ class FormSection extends Component {
           tableData={{
             syllabusName: this.props.formSectionData.syllabusName,
             courseTypeName: this.props.formSectionData.courseTypeName,
-            table: this.props.formSectionData.formSection.table
+            courseInputForm: this.props.formSectionData.courseInputForm,
+            table: this.props.formSectionData.formSection.table,
+            index: this.props.formSectionData.index
           }}
         />
       );

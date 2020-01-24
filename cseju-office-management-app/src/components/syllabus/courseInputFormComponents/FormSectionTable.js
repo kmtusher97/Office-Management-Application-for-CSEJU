@@ -8,13 +8,33 @@ class FormSectionTable extends Component {
     this.state = {
       syllabusName: this.props.tableData.syllabusName,
       courseTypeName: this.props.tableData.courseTypeName,
-      table: this.props.tableData.table
+      courseInputForm: this.props.tableData.courseInputForm,
+      table: this.props.tableData.table,
+      index: this.props.tableData.index
     };
   }
 
-  responseOnChangeInForm(event) {
-    console.log(event.target);
-  }
+  onChangeHandlerForTitle = event => {
+    var tempTable = this.state.table;
+    tempTable.title = event.target.value;
+    this.setState({ textArea: tempTable });
+  };
+
+  /** auto save changes */
+  onBlurHandlerForTitle = event => {
+    var tmpCourseInputForm = this.state.courseInputForm;
+    tmpCourseInputForm.courseInputFormSections[
+      this.state.index
+    ].table = this.state.table;
+
+    let url = `http://localhost:8081/syllabus/create_form/${this.state.syllabusName}/${this.state.courseTypeName}/auto_save`;
+
+    fetch(url, {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(tmpCourseInputForm)
+    });
+  };
 
   render() {
     return (
@@ -32,7 +52,8 @@ class FormSectionTable extends Component {
               type="text"
               className="form-control"
               value={this.state.table.title}
-              onChange={this.responseOnChangeInForm.bind(this)}
+              onChange={this.onChangeHandlerForTitle}
+              onBlur={this.onBlurHandlerForTitle}
             />
           </div>
           <div

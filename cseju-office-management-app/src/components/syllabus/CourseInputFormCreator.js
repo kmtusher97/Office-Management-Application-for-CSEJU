@@ -52,7 +52,9 @@ class CourseInputFormCreator extends Component {
                     formSectionData={{
                       syllabusName: this.state.syllabusName,
                       courseTypeName: this.state.courseTypeName,
-                      formSection: formSection
+                      formSection: formSection,
+                      courseInputForm: this.state.courseInputForm,
+                      index: idx
                     }}
                   />
                 </div>
