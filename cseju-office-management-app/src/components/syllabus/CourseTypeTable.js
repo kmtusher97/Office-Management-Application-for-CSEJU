@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
+import AppData from "../AppData";
+
 export default class CourseTypeTable extends Component {
   constructor(props) {
     super(props);
@@ -18,7 +20,7 @@ export default class CourseTypeTable extends Component {
 
   componentDidMount() {
     /** returns all the course type names */
-    let url = `http://localhost:8081/syllabus/course_type/${this.props.syllabusName}/get/all`;
+    let url = `${AppData.restApiBaseUrl}/syllabus/course_type/${this.props.syllabusName}/get/all`;
 
     fetch(url)
       .then(res => res.json())
@@ -30,7 +32,7 @@ export default class CourseTypeTable extends Component {
   }
 
   deleteCourseType(event) {
-    let url = `http://localhost:8081/syllabus/course_type/edit/${
+    let url = `${AppData.restApiBaseUrl}/syllabus/course_type/edit/${
       this.props.syllabusName
     }/delete/course_type/${this.state.courseTypeNames[event.target.id]}`;
 

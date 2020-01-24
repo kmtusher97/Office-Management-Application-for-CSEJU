@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Card } from "react-bootstrap";
 import FormSectionMenu from "./FormSectionMenu";
 
+import AppData from "../../AppData";
+
 class FormSectionTextArea extends Component {
   constructor(props) {
     super(props);
@@ -27,7 +29,7 @@ class FormSectionTextArea extends Component {
       this.state.index
     ].textArea = this.state.textArea;
 
-    let url = `http://localhost:8081/syllabus/create_form/${this.state.syllabusName}/${this.state.courseTypeName}/auto_save`;
+    let url = `${AppData.restApiBaseUrl}/syllabus/create_form/${this.state.syllabusName}/${this.state.courseTypeName}/auto_save`;
 
     fetch(url, {
       method: "post",

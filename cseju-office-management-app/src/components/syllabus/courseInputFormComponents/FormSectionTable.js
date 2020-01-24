@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Card } from "react-bootstrap";
 import FormSectionMenu from "./FormSectionMenu";
 
+import AppData from "../../AppData";
+
 class FormSectionTable extends Component {
   constructor(props) {
     super(props);
@@ -27,7 +29,7 @@ class FormSectionTable extends Component {
       this.state.index
     ].table = this.state.table;
 
-    let url = `http://localhost:8081/syllabus/create_form/${this.state.syllabusName}/${this.state.courseTypeName}/auto_save`;
+    let url = `${AppData.restApiBaseUrl}/syllabus/create_form/${this.state.syllabusName}/${this.state.courseTypeName}/auto_save`;
 
     fetch(url, {
       method: "post",

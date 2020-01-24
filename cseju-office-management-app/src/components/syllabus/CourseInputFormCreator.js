@@ -3,6 +3,8 @@ import { Row, Col, Card, Container } from "react-bootstrap";
 import FormSection from "./courseInputFormComponents/FormSection";
 import SideMenusForForm from "./courseInputFormComponents/SideMenusForForm";
 
+import AppData from "../AppData";
+
 class CourseInputFormCreator extends Component {
   constructor(props) {
     super(props);
@@ -15,7 +17,7 @@ class CourseInputFormCreator extends Component {
 
   componentDidMount() {
     /** Get Form Structure JSON */
-    let url = `http://localhost:8081/syllabus/create_form/${this.state.syllabusName}/${this.state.courseTypeName}/get_form`;
+    let url = `${AppData.restApiBaseUrl}/syllabus/create_form/${this.state.syllabusName}/${this.state.courseTypeName}/get_form`;
 
     fetch(url)
       .then(res => res.json())

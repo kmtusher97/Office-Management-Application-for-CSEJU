@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { Col } from "react-bootstrap";
 
+import AppData from "../../AppData";
+
 class SideMenusForForm extends Component {
   addFormSection = event => {
-    let url = `http://localhost:8081/syllabus/create_form/${this.props.formSideMenuData.syllabusName}/${this.props.formSideMenuData.courseTypeName}/add_new_section`;
+    let url = `${AppData.restApiBaseUrl}/syllabus/create_form/${this.props.formSideMenuData.syllabusName}/${this.props.formSideMenuData.courseTypeName}/add_new_section`;
 
     fetch(url);
     window.location.reload();
