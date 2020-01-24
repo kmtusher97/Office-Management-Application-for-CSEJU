@@ -16,7 +16,7 @@ class CourseInputFormCreator extends Component {
   componentDidMount() {
     /** Get Form Structure JSON */
     let url = `http://localhost:8081/syllabus/create_form/${this.state.syllabusName}/${this.state.courseTypeName}/get_form`;
-    console.log(url);
+
     fetch(url)
       .then(res => res.json())
       .then(result =>
