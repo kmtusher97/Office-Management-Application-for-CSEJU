@@ -1,3 +1,3 @@
 export default {
-  restApiBaseUrl: "http://localhost:8081"
+  restApiBaseUrl: "http://localhost:8081/api"
 };
