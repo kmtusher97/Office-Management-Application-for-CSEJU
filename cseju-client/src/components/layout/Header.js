@@ -41,47 +41,59 @@ class Header extends Component {
 
   render() {
     return (
-      <nav
-        className="navbar navbar-expand-lg navbar-light"
-        style={{ backgroundColor: "#e3f2fd" }}
+      <Navbar
+        collapseOnSelect
+        expand="md"
+        bg="light"
+        variant="light"
+        className="shadow p-2 mb-1 bg-white rounded header"
       >
-        <a className="navbar-brand" href={headerData.brandLink}>
-          <img src={headerData.brandLogo} width="30" height="30" alt="" />
-        </a>
+        <Navbar.Brand href={headerData.brandLink}>
+          <Image
+            src={headerData.brandLogo}
+            style={{
+              width: 40,
+              height: 40,
+              alt: "Jahangirnagar University Logo"
+            }}
+          />
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
 
-        <div className="mr-auto">
-          <ul className="navbar-nav">
+        <Navbar.Collapse className="responsive-navbar-nav">
+          <Nav
+            className="mr-auto "
+            variant="tabs"
+            defaultActiveKey={
+              "/" +
+              window.location.pathname.match(
+                window.location.pathname.split("/")[1]
+              )[0]
+            }
+          >
             {headerData.menus.map((menu, idxHeaderMenu) => (
-              <li
-                key={idxHeaderMenu}
-                className={
-                  "/" + this.state.activeLink === menu.link
-                    ? "nav-item active"
-                    : "nav-item"
-                }
-              >
-                <a className="nav-link" href={menu.link} eventkey={menu.link}>
+              <NavItem key={idxHeaderMenu} className="left_nav">
+                <Nav.Link
+                  href={menu.link}
+                  eventKey={menu.link}
+                  style={{ fontSize: "12px" }}
+                >
                   {menu.name}
-                </a>
-              </li>
+                </Nav.Link>
+              </NavItem>
             ))}
-          </ul>
-        </div>
-        <div>
-          <ul className="navbar-nav">
-            <li className="nav-item">
-              <a className="nav-link" href="/dashboard">
-                Notification
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/dashboard">
-                Profile
-              </a>
-            </li>
-          </ul>
-        </div>
-      </nav>
+          </Nav>
+          <Nav>
+            {headerData.rightSideMenus.map((menu, idxRgtHeaderMenus) => (
+              <NavItem key={idxRgtHeaderMenus}>
+                <Nav.Link href={menu.link} style={{ paddingRight: "50px" }}>
+                  {menu.name}
+                </Nav.Link>
+              </NavItem>
+            ))}
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
     );
   }
 }
