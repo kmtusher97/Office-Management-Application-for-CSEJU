@@ -13,6 +13,9 @@ class CourseInputFormCreator extends Component {
       courseTypeName: this.props.match.params.courseTypeName,
       courseInputForm: { courseInputFormSections: [] }
     };
+
+    this.handleContentSelector = this.handleContentSelector.bind(this);
+    this.deleteFormSection = this.deleteFormSection.bind(this);
   }
 
   componentDidMount() {
@@ -27,6 +30,33 @@ class CourseInputFormCreator extends Component {
         })
       );
   }
+
+  deleteFormSection = event => {
+    let url = `${AppData.restApiBaseUrl}/syllabus/create_form/${this.state.syllabusName}/${this.state.courseTypeName}/delete_section/${event.target.id}`;
+
+    fetch(url, { method: "delete" })
+      .then(res => res.json())
+      .then(result =>
+        this.setState({
+          courseInputForm: result
+        })
+      );
+
+    window.location.reload();
+  };
+
+  handleContentSelector = event => {
+    let url = `${AppData.restApiBaseUrl}/syllabus/create_form/${this.state.syllabusName}/${this.state.courseTypeName}/${event.target.id}/change_selected/${event.target.value}`;
+
+    fetch(url)
+      .then(res => res.json())
+      .then(result =>
+        this.setState({
+          courseInputForm: result
+        })
+      );
+    //window.location.reload();
+  };
 
   render() {
     return (
@@ -58,6 +88,8 @@ class CourseInputFormCreator extends Component {
                       courseInputForm: this.state.courseInputForm,
                       index: idx
                     }}
+                    deleteFormSectionHandler={this.deleteFormSection}
+                    handleSelector={this.handleContentSelector}
                   />
                 </div>
               )

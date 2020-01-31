@@ -79,6 +79,8 @@ class FormSectionTextArea extends Component {
               contentId: this.state.textArea.textAreaId,
               selectedContent: "TextArea"
             }}
+            deleteFormSectionHandler={this.props.deleteFormSectionHandler}
+            handleSelector={this.props.handleSelector}
           />
         </form>
       </Card>

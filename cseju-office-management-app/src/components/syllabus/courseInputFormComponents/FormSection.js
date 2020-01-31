@@ -13,8 +13,10 @@ class FormSection extends Component {
             courseTypeName: this.props.formSectionData.courseTypeName,
             courseInputForm: this.props.formSectionData.courseInputForm,
             textArea: this.props.formSectionData.formSection.textArea,
-            index: this.props.formSectionData.index
+            index: this.props.formSectionData
           }}
+          deleteFormSectionHandler={this.props.deleteFormSectionHandler}
+          handleSelector={this.props.handleSelector}
         />
       );
     } else if (
@@ -29,6 +31,8 @@ class FormSection extends Component {
             table: this.props.formSectionData.formSection.table,
             index: this.props.formSectionData.index
           }}
+          deleteFormSectionHandler={this.props.deleteFormSectionHandler}
+          handleSelector={this.props.handleSelector}
         />
       );
     }

@@ -33,8 +33,15 @@ class FormSectionTable extends Component {
 
   addFieldIntoTable = event => {
     let url = `${AppData.restApiBaseUrl}/syllabus/create_form/${this.state.syllabusName}/${this.state.courseTypeName}/${this.state.table.tableId}/table/add_field`;
-    fetch(url);
-    window.location.reload();
+
+    fetch(url)
+      .then(res => res.json())
+      .then(result =>
+        this.setState({
+          table: result.courseInputFormSections[this.state.index].table
+        })
+      );
+
     event.preventDefault();
   };
 
@@ -132,6 +139,8 @@ class FormSectionTable extends Component {
               contentId: this.state.table.tableId,
               selectedContent: "Table"
             }}
+            deleteFormSectionHandler={this.props.deleteFormSectionHandler}
+            handleSelector={this.props.handleSelector}
           />
         </form>
       </Card>
