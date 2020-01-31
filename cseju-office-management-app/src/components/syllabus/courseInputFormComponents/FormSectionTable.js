@@ -63,8 +63,21 @@ class FormSectionTable extends Component {
   };
 
   deleteFieldFromTable = event => {
-    console.log(event.target);
-    event.preventDefault();
+    let url = `${AppData.restApiBaseUrl}/syllabus/create_form/${
+      this.state.syllabusName
+    }/${this.state.courseTypeName}/${
+      this.state.table.tableId
+    }/table/delete_field/${parseInt(event.target.id, 10) + 1}`;
+
+    console.log(url);
+
+    fetch(url, { method: "delete" })
+      .then(res => res.json())
+      .then(result =>
+        this.setState({
+          table: result.courseInputFormSections[this.state.index].table
+        })
+      );
   };
 
   render() {
