@@ -1,3 +1,3 @@
 export default {
-  restApiBaseUrl: "http://localhost:8081/api"
+  restApiBaseUrl: "https://cseju.herokuapp.com/api"
 };

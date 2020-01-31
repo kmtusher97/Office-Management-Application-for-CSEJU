@@ -62,6 +62,11 @@ class FormSectionTable extends Component {
     });
   };
 
+  deleteFieldFromTable = event => {
+    console.log(event.target);
+    event.preventDefault();
+  };
+
   render() {
     return (
       <Card key={this.props.tableData.tableId}>
@@ -103,6 +108,24 @@ class FormSectionTable extends Component {
                           onBlur={this.onBlurHandler}
                           style={{ fontSize: "11px" }}
                         />
+                      </div>
+                      <div>
+                        <button
+                          style={{
+                            border: "none",
+                            padding: 0,
+                            background: "none"
+                          }}
+                        >
+                          <span>
+                            <i
+                              id={fieldIdx}
+                              onClick={this.deleteFieldFromTable}
+                              className="fa fa-trash"
+                              style={{ color: "red" }}
+                            ></i>
+                          </span>
+                        </button>
                       </div>
                     </td>
                   ))}
