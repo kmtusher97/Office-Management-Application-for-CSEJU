@@ -24,8 +24,9 @@ class FormSectionTable extends Component {
   };
 
   onChangeHandlerForFieldName = event => {
+    let id = event.target.id.split("_")[1];
     let tempTable = this.state.table;
-    tempTable.fields[event.target.id] = event.target.value;
+    tempTable.fields[id] = event.target.value;
     this.setState({
       table: tempTable
     });
@@ -94,8 +95,7 @@ class FormSectionTable extends Component {
                     <td key={"field_" + fieldIdx}>
                       <div>
                         <input
-                          key={fieldIdx}
-                          id={fieldIdx}
+                          id={this.state.table.tableId + "_" + fieldIdx}
                           type="text"
                           className="form-control"
                           value={field}

@@ -17,17 +17,14 @@ class FormSectionTextArea extends Component {
   }
 
   onChangeHandlerForTitle = event => {
-    var tempTextArea = this.state.textArea;
+    let tempTextArea = this.state.textArea;
     tempTextArea.title = event.target.value;
     this.setState({ textArea: tempTextArea });
   };
 
   /** auto save changes */
   onBlurHandlerForTitle = event => {
-    var tmpCourseInputForm = this.state.courseInputForm;
-    tmpCourseInputForm.courseInputFormSections[
-      this.state.index
-    ].textArea = this.state.textArea;
+    let tmpCourseInputForm = this.state.courseInputForm;
 
     let url = `${AppData.restApiBaseUrl}/syllabus/create_form/${this.state.syllabusName}/${this.state.courseTypeName}/auto_save`;
 
