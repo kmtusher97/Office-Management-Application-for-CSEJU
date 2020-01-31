@@ -13,8 +13,19 @@ class SyllabusCreator extends Component {
       effectiveTo: 0,
       syllabusType: "",
       courseTypes: [],
-      years: []
+      years: [],
+      newCourse: {
+        courseCode: "",
+        courseTitle: "",
+        courseCredit: "",
+        year: "",
+        semester: ""
+      }
     };
+
+    this.onchangeHandlerForAddNewCourseForm = this.onchangeHandlerForAddNewCourseForm.bind(
+      this
+    );
   }
 
   getCourseTypes = () => {
@@ -113,6 +124,9 @@ class SyllabusCreator extends Component {
     }
     return rowSpan;
   };
+
+  /**Add new course form */
+  onchangeHandlerForAddNewCourseForm = event => {};
 
   render() {
     return (
@@ -251,6 +265,80 @@ class SyllabusCreator extends Component {
               })}
             </tbody>
           </table>
+        </div>
+        <div className="container">
+          <div className="row">
+            <div className="col-md-4">
+              <div className="container">
+                <h6>Add New Course</h6>
+              </div>
+              <form id="add new course form">
+                <div className="form-group">
+                  <input
+                    className="form-control"
+                    style={{ fontSize: "11px" }}
+                    type="text"
+                    placeholder="Course Code"
+                    value={this.state.newCourse.courseCode}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    className="form-control"
+                    style={{ fontSize: "11px" }}
+                    type="text"
+                    placeholder="Course Title"
+                    value={this.state.newCourse.courseTitle}
+                    required
+                    onChange={this.onchangeHandlerForAddNewCourseForm}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    className="form-control"
+                    style={{ fontSize: "11px" }}
+                    type=""
+                    placeholder="Credit"
+                    value={this.state.newCourse.courseCredit}
+                    required
+                    onChange={this.onchangeHandlerForAddNewCourseForm}
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Selet Year</label>
+                  <br />
+                  <select
+                    value={this.state.newCourse.year}
+                    onChange={this.onchangeHandlerForAddNewCourseForm}
+                  >
+                    {this.state.years.map((year, idx) => (
+                      <option key={idx} value={idx + 1}>
+                        {idx + 1 + this.getNumberSuffix(idx + 1) + " Year"}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label>Selet Semester</label>
+                  <br />
+                  <select
+                    value={this.state.newCourse.semester}
+                    onChange={this.onchangeHandlerForAddNewCourseForm}
+                  >
+                    {this.state.years.map((year, idx) => (
+                      <option key={idx} value={idx + 1}>
+                        {idx + 1 + this.getNumberSuffix(idx + 1) + " Semester"}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="form-group">
+                  <input type="submit" value="Add New Course" />
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     );
