@@ -14,8 +14,9 @@ class CourseInputFormCreator extends Component {
       courseInputForm: { courseInputFormSections: [] }
     };
 
-    this.handleContentSelector = this.handleContentSelector.bind(this);
+    this.addFormSection = this.addFormSection.bind(this);
     this.deleteFormSection = this.deleteFormSection.bind(this);
+    this.handleContentSelector = this.handleContentSelector.bind(this);
   }
 
   componentDidMount() {
@@ -55,7 +56,20 @@ class CourseInputFormCreator extends Component {
           courseInputForm: result
         })
       );
-    //window.location.reload();
+  };
+
+  addFormSection = event => {
+    let url = `${AppData.restApiBaseUrl}/syllabus/create_form/${this.state.syllabusName}/${this.state.courseTypeName}/add_new_section`;
+
+    fetch(url)
+      .then(res => res.json())
+      .then(result =>
+        this.setState({
+          courseInputForm: result
+        })
+      );
+
+    event.preventDefault();
   };
 
   render() {
@@ -95,12 +109,7 @@ class CourseInputFormCreator extends Component {
               )
             )}
           </Col>
-          <SideMenusForForm
-            formSideMenuData={{
-              syllabusName: this.state.syllabusName,
-              courseTypeName: this.state.courseTypeName
-            }}
-          />
+          <SideMenusForForm addFormSection={this.addFormSection} />
         </Row>
       </Container>
     );

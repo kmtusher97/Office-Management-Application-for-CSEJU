@@ -1,16 +1,7 @@
 import React, { Component } from "react";
 import { Col } from "react-bootstrap";
 
-import AppData from "../../AppData";
-
 class SideMenusForForm extends Component {
-  addFormSection = event => {
-    let url = `${AppData.restApiBaseUrl}/syllabus/create_form/${this.props.formSideMenuData.syllabusName}/${this.props.formSideMenuData.courseTypeName}/add_new_section`;
-
-    fetch(url);
-    window.location.reload();
-  };
-
   render() {
     return (
       <Col md={1}>
@@ -21,12 +12,17 @@ class SideMenusForForm extends Component {
           }}
         >
           <div style={{ paddingTop: "2px" }}>
-            <button>
-              <i
-                className="fa fa-plus"
-                onClick={this.addFormSection}
-                style={{ color: "green" }}
-              ></i>
+            <button
+              className="btn"
+              style={{ border: "none", padding: 0, background: "none" }}
+            >
+              <span>
+                <i
+                  className="fa fa-plus"
+                  onClick={this.props.addFormSection}
+                  style={{ color: "green" }}
+                ></i>
+              </span>
             </button>
           </div>
         </div>
