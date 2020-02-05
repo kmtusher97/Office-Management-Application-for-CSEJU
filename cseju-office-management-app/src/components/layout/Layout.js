@@ -4,7 +4,7 @@ import Routing from "../../route/Routing";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 
-const sideBarStyle = {
+const footerStyle = {
   border: "2px solid #d1cfcb",
   borderRadius: "15px",
   fontSize: "11px",
@@ -30,7 +30,16 @@ class Layout extends Component {
         </Row>
         <Row>
           <Col md={2}>
-            <Sidebar />
+            <Row>
+              <Col md={12}>
+                <Sidebar />
+              </Col>
+            </Row>
+            <Row>
+              <Col md={12}>
+                <hr style={{ border: "1px solid gray", padding: "0px" }} />
+              </Col>
+            </Row>
           </Col>
           <Col md={10}>
             <div
@@ -43,7 +52,7 @@ class Layout extends Component {
         </Row>
         <Container
           className="fluid shadow p-2 mb-1 bg-white rounded"
-          style={sideBarStyle}
+          style={footerStyle}
         >
           <p>Footer</p>
         </Container>

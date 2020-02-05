@@ -1,17 +1,34 @@
 import React, { Component } from "react";
-import { Nav, NavItem } from "react-bootstrap";
-
+import { Nav } from "react-bootstrap";
 import syllabusMenus from "./SyllabusMenus";
 
 class SyllabusMenubar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      pathnameComponents: window.location.pathname.split("/")
+    };
+  }
+
   render() {
-    return syllabusMenus.menus.map((menu, idx) => (
-      <NavItem key={idx}>
-        <Nav.Link href={menu.link} eventKey={menu.link}>
-          {menu.name}
-        </Nav.Link>
-      </NavItem>
-    ));
+    return (
+      <Nav
+        className="flex-column"
+        variant="tabs"
+        defaultActiveKey={
+          "/" +
+          this.state.pathnameComponents[1] +
+          "/" +
+          this.state.pathnameComponents[2]
+        }
+      >
+        {syllabusMenus.menus.map((menu, idx) => (
+          <Nav.Link key={idx} href={menu.link} eventKey={menu.link}>
+            {menu.name}
+          </Nav.Link>
+        ))}
+      </Nav>
+    );
   }
 }
 
