@@ -1,11 +1,17 @@
 import React, { Component } from "react";
-import { Table } from "react-bootstrap";
+import { Table, Button } from "react-bootstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faPen, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 import AppData from "../AppData";
+
+const actionButtonStyle = {
+  paddingTop: "0px",
+  height: "23px",
+  width: "30px"
+};
 
 export default class CourseTypeTable extends Component {
   constructor(props) {
@@ -34,12 +40,10 @@ export default class CourseTypeTable extends Component {
   deleteCourseType(event) {
     let url = `${AppData.restApiBaseUrl}/syllabus/course_type/edit/${
       this.props.syllabusName
-    }/delete/course_type/${this.state.courseTypeNames[event.target.id]}`;
+    }/delete/course_type/${this.state.courseTypeNames[event.currentTarget.id]}`;
 
-    console.log(url);
     fetch(url, { method: "delete" }); /**method default GET */
     window.location.reload();
-    event.preventDefault();
   }
 
   render() {
@@ -49,6 +53,7 @@ export default class CourseTypeTable extends Component {
           <tr>
             <th>#</th>
             <th>Course Type</th>
+
             <th>Edit</th>
             <th className="text-danger">Delete</th>
             <th>Preview</th>
@@ -69,29 +74,34 @@ export default class CourseTypeTable extends Component {
                     courseTypeName
                   }
                 >
-                  <button disabled>
-                    <i
-                      id={idx}
-                      className="fa fa-pencil"
-                      style={{ color: "#3385ff" }}
-                    ></i>
-                  </button>
+                  <Button
+                    size="sm"
+                    variant="outline-secondary"
+                    style={actionButtonStyle}
+                  >
+                    <FontAwesomeIcon icon={faPen} />
+                  </Button>
                 </Link>
               </td>
               <td>
-                <button disabled>
-                  <i
-                    id={idx}
-                    onClick={this.deleteCourseType}
-                    className="fa fa-trash"
-                    style={{ color: "red" }}
-                  />
-                </button>
+                <Button
+                  id={idx}
+                  size="sm"
+                  variant="danger"
+                  style={actionButtonStyle}
+                  onClick={this.deleteCourseType}
+                >
+                  <FontAwesomeIcon id={idx} icon={faTrashAlt} />
+                </Button>
               </td>
               <td>
-                <button>
+                <Button
+                  size="sm"
+                  variant="outline-secondary"
+                  style={{ paddingTop: "0px", height: "23px", width: "33px" }}
+                >
                   <FontAwesomeIcon icon={faEye} />
-                </button>
+                </Button>
               </td>
             </tr>
           ))}
