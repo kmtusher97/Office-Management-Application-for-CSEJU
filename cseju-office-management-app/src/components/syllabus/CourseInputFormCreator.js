@@ -3,6 +3,8 @@ import { Row, Col, Card, Container } from "react-bootstrap";
 import FormSection from "./courseInputFormComponents/FormSection";
 import SideMenusForForm from "./courseInputFormComponents/SideMenusForForm";
 
+import AppData from "../AppData";
+
 class CourseInputFormCreator extends Component {
   constructor(props) {
     super(props);
@@ -11,12 +13,16 @@ class CourseInputFormCreator extends Component {
       courseTypeName: this.props.match.params.courseTypeName,
       courseInputForm: { courseInputFormSections: [] }
     };
+
+    this.addFormSection = this.addFormSection.bind(this);
+    this.deleteFormSection = this.deleteFormSection.bind(this);
+    this.handleContentSelector = this.handleContentSelector.bind(this);
   }
 
   componentDidMount() {
     /** Get Form Structure JSON */
-    let url = `http://localhost:8081/syllabus/create_form/${this.state.syllabusName}/${this.state.courseTypeName}/get_form`;
-    console.log(url);
+    let url = `${AppData.restApiBaseUrl}/syllabus/create_form/${this.state.syllabusName}/${this.state.courseTypeName}/get_form`;
+
     fetch(url)
       .then(res => res.json())
       .then(result =>
@@ -25,6 +31,46 @@ class CourseInputFormCreator extends Component {
         })
       );
   }
+
+  deleteFormSection = event => {
+    let url = `${AppData.restApiBaseUrl}/syllabus/create_form/${this.state.syllabusName}/${this.state.courseTypeName}/delete_section/${event.target.id}`;
+
+    fetch(url, { method: "delete" })
+      .then(res => res.json())
+      .then(result =>
+        this.setState({
+          courseInputForm: result
+        })
+      );
+
+    window.location.reload();
+  };
+
+  handleContentSelector = event => {
+    let url = `${AppData.restApiBaseUrl}/syllabus/create_form/${this.state.syllabusName}/${this.state.courseTypeName}/${event.target.id}/change_selected/${event.target.value}`;
+
+    fetch(url)
+      .then(res => res.json())
+      .then(result =>
+        this.setState({
+          courseInputForm: result
+        })
+      );
+  };
+
+  addFormSection = event => {
+    let url = `${AppData.restApiBaseUrl}/syllabus/create_form/${this.state.syllabusName}/${this.state.courseTypeName}/add_new_section`;
+
+    fetch(url)
+      .then(res => res.json())
+      .then(result =>
+        this.setState({
+          courseInputForm: result
+        })
+      );
+
+    event.preventDefault();
+  };
 
   render() {
     return (
@@ -52,19 +98,18 @@ class CourseInputFormCreator extends Component {
                     formSectionData={{
                       syllabusName: this.state.syllabusName,
                       courseTypeName: this.state.courseTypeName,
-                      formSection: formSection
+                      formSection: formSection,
+                      courseInputForm: this.state.courseInputForm,
+                      index: idx
                     }}
+                    deleteFormSectionHandler={this.deleteFormSection}
+                    handleSelector={this.handleContentSelector}
                   />
                 </div>
               )
             )}
           </Col>
-          <SideMenusForForm
-            formSideMenuData={{
-              syllabusName: this.state.syllabusName,
-              courseTypeName: this.state.courseTypeName
-            }}
-          />
+          <SideMenusForForm addFormSection={this.addFormSection} />
         </Row>
       </Container>
     );

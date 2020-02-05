@@ -11,20 +11,6 @@ class FormSectionMenu extends Component {
     };
   }
 
-  handleSelector = event => {
-    let url = `http://localhost:8081/syllabus/create_form/${this.props.menubarData.syllabusName}/${this.props.menubarData.courseTypeName}/${this.props.menubarData.contentId}/change_selected/${event.target.value}`;
-
-    fetch(url);
-    window.location.reload();
-  };
-
-  deleteFormSection = event => {
-    let url = `http://localhost:8081/syllabus/create_form/${this.props.menubarData.syllabusName}/${this.props.menubarData.courseTypeName}/delete_section/${this.props.menubarData.contentId}`;
-
-    fetch(url, { method: "delete" });
-    window.location.reload();
-  };
-
   render() {
     return (
       <Container>
@@ -44,19 +30,25 @@ class FormSectionMenu extends Component {
         <Row style={{ paddingBottom: "5px", alignContent: "right" }}>
           <Col md={8}></Col>
           <Col md={2}>
-            <button disabled>
-              <i
-                id={"formSectionDeleteButton"}
-                className="fa fa-trash"
-                style={{ color: "red" }}
-                onClick={this.deleteFormSection}
-              ></i>
+            <button
+              className="btn btn-md"
+              style={{ border: "none", padding: 0, background: "none" }}
+            >
+              <span>
+                <i
+                  id={this.props.menubarData.contentId}
+                  className="fa fa-trash"
+                  style={{ color: "red" }}
+                  onClick={this.props.deleteFormSectionHandler}
+                ></i>
+              </span>
             </button>
           </Col>
           <Col md={2} style={{ paddingLeft: "0px", paddingRight: "10px" }}>
             <select
+              id={this.props.menubarData.contentId}
               defaultValue={this.state.selectedContentByUser}
-              onChange={this.handleSelector}
+              onChange={this.props.handleSelector}
               style={{ position: "relative" }}
             >
               {contents.map((content, idx) => (

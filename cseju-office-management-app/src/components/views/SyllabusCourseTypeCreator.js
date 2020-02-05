@@ -4,6 +4,7 @@ import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import Appdata from "../AppData";
 
 class SyllabusCourseTypeCreator extends Component {
   constructor(props) {
@@ -22,7 +23,7 @@ class SyllabusCourseTypeCreator extends Component {
   }
 
   handleSubmit(event) {
-    let url = `http://localhost:8081/syllabus/course_type/edit/${this.state.syllabusName}/add/course_type/${this.state.newCourseTypeName}`;
+    let url = `${Appdata.restApiBaseUrl}/syllabus/course_type/edit/${this.state.syllabusName}/add/course_type/${this.state.newCourseTypeName}`;
 
     fetch(url);
     window.location.reload();
