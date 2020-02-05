@@ -1,37 +1,53 @@
 import React, { Component } from "react";
-import { Row, Col, Container } from "react-bootstrap";
-import "./Layout.css";
+import { Container, Row, Col } from "react-bootstrap";
 import Routing from "../../route/Routing";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 
+const sideBarStyle = {
+  border: "2px solid #d1cfcb",
+  borderRadius: "15px",
+  fontSize: "11px",
+  fontFamily: "Arial, Helvetica, sans-serif"
+};
+
+const mainDivStyle = {
+  border: "2px solid #d1cfcb",
+  borderRadius: "15px",
+  height: "700px",
+  fontSize: "11px",
+  fontFamily: "Arial, Helvetica, sans-serif"
+};
+
 class Layout extends Component {
   render() {
     return (
-      <Row>
-        <Col md={1}></Col>
-        <Col md={10} className="fluid">
-          <Row className="header_container">
-            <Col md={12}>
-              <Header />
-            </Col>
-          </Row>
-          <Row>
-            <Col md={2}>
-              <Container className="sidebar_container">
-                <Sidebar />
-              </Container>
-            </Col>
-            <Col md={10} style={{ paddingLeft: "0px", paddingRight: "30px" }}>
-              <main className="main ">
-                <div className="workspace fluid shadow p-2 mb-1 bg-white rounded">
-                  <Routing />
-                </div>
-              </main>
-            </Col>
-          </Row>
-        </Col>
-      </Row>
+      <Container className="fluid">
+        <Row>
+          <Col md={12}>
+            <Header />
+          </Col>
+        </Row>
+        <Row>
+          <Col md={2}>
+            <Sidebar />
+          </Col>
+          <Col md={10}>
+            <div
+              className="fluid shadow p-2 mb-1 bg-white rounded"
+              style={mainDivStyle}
+            >
+              <Routing />
+            </div>
+          </Col>
+        </Row>
+        <Container
+          className="fluid shadow p-2 mb-1 bg-white rounded"
+          style={sideBarStyle}
+        >
+          <p>Footer</p>
+        </Container>
+      </Container>
     );
   }
 }

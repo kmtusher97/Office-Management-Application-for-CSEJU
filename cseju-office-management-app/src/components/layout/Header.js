@@ -1,19 +1,27 @@
 import React, { Component } from "react";
-import "./Header.css";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Navbar, Nav, NavItem, Image } from "react-bootstrap";
+import { Navbar, Nav, Image } from "react-bootstrap";
 
 import headerData from "./HeaderData";
+
+const headerStyle = {
+  border: "2px solid #d1cfcb",
+  borderRadius: "15px",
+  fontSize: "11px",
+  fontFamily: "Arial, Helvetica, sans-serif"
+};
 
 class Header extends Component {
   render() {
     return (
       <Navbar
         collapseOnSelect
-        expand="md"
+        expand="lg"
         bg="light"
         variant="light"
-        className="shadow p-2 mb-1 bg-white rounded header"
+        className="shadow p-2 mb-1 bg-white rounded"
+        style={headerStyle}
       >
         <Navbar.Brand href={headerData.brandLink}>
           <Image
@@ -27,7 +35,7 @@ class Header extends Component {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
 
-        <Navbar.Collapse className="responsive-navbar-nav">
+        <Navbar.Collapse id="responsive-navbar-nav">
           <Nav
             className="mr-auto "
             variant="tabs"
@@ -39,24 +47,25 @@ class Header extends Component {
             }
           >
             {headerData.menus.map((menu, idxHeaderMenu) => (
-              <NavItem key={idxHeaderMenu} className="left_nav">
-                <Nav.Link
-                  href={menu.link}
-                  eventKey={menu.link}
-                  style={{ fontSize: "12px" }}
-                >
-                  {menu.name}
-                </Nav.Link>
-              </NavItem>
+              <Nav.Link
+                key={idxHeaderMenu}
+                href={menu.link}
+                eventKey={menu.link}
+                style={{ fontSize: "12px" }}
+              >
+                {menu.name}
+              </Nav.Link>
             ))}
           </Nav>
           <Nav>
             {headerData.rightSideMenus.map((menu, idxRgtHeaderMenus) => (
-              <NavItem key={idxRgtHeaderMenus}>
-                <Nav.Link href={menu.link} style={{ paddingRight: "50px" }}>
-                  <FontAwesomeIcon icon={menu.icon} size="lg" />
-                </Nav.Link>
-              </NavItem>
+              <Nav.Link
+                key={idxRgtHeaderMenus}
+                href={menu.link}
+                style={{ paddingRight: "50px" }}
+              >
+                <FontAwesomeIcon icon={menu.icon} size="lg" />
+              </Nav.Link>
             ))}
           </Nav>
         </Navbar.Collapse>
