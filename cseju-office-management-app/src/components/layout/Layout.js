@@ -22,7 +22,7 @@ const mainDivStyle = {
 class Layout extends Component {
   render() {
     return (
-      <Container className="fluid">
+      <Container>
         <Row>
           <Col md={12}>
             <Header />
