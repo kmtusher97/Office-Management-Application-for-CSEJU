@@ -1,21 +1,71 @@
 import React, { Component } from "react";
-import CourseTypeTable from "../syllabus/CourseTypeTable";
-import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  Button,
+  Card,
+  Table
+} from "react-bootstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlusCircle,
+  faPen,
+  faTrashAlt,
+  faEye
+} from "@fortawesome/free-solid-svg-icons";
 import Appdata from "../AppData";
+import Axios from "axios";
+import { Link } from "react-router-dom";
+
+const actionButtonStyle = {
+  paddingTop: "0px",
+  height: "23px",
+  width: "30px"
+};
 
 class SyllabusCourseTypeCreator extends Component {
   constructor(props) {
     super(props);
     this.state = {
       syllabusName: "syl1",
+      courseTypeNames: [],
       newCourseTypeName: ""
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.deleteCourseType = this.deleteCourseType.bind(this);
+  }
+
+  componentDidMount() {
+    /** returns all the course type names */
+    let url = `${Appdata.restApiBaseUrl}/syllabus/course_type/${this.state.syllabusName}/get/all`;
+
+    Axios.get(url)
+      .then(response => response.data)
+      .then(data => {
+        this.setState({
+          courseTypeNames: data
+        });
+      });
+  }
+
+  deleteCourseType(event) {
+    event.preventDefault();
+    let url = `${Appdata.restApiBaseUrl}/syllabus/course_type/edit/${
+      this.state.syllabusName
+    }/delete/course_type/${this.state.courseTypeNames[event.currentTarget.id]}`;
+
+    Axios.delete(url)
+      .then(response => response.data)
+      .then(data => {
+        this.setState({
+          courseTypeNames: data
+        });
+      });
   }
 
   handleChange(event) {
@@ -23,11 +73,17 @@ class SyllabusCourseTypeCreator extends Component {
   }
 
   handleSubmit(event) {
+    event.preventDefault();
     let url = `${Appdata.restApiBaseUrl}/syllabus/course_type/edit/${this.state.syllabusName}/add/course_type/${this.state.newCourseTypeName}`;
 
-    fetch(url);
-    window.location.reload();
-    event.preventDefault();
+    Axios.get(url)
+      .then(response => response.data)
+      .then(data => {
+        this.setState({
+          courseTypeNames: data,
+          newCourseTypeName: ""
+        });
+      });
   }
 
   render() {
@@ -35,7 +91,69 @@ class SyllabusCourseTypeCreator extends Component {
       <Container style={{ paddingTop: "15px" }}>
         <Row>
           <Col md={12}>
-            <CourseTypeTable syllabusName={this.state.syllabusName} />
+            <Table striped bordered hover size="sm">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Course Type</th>
+
+                  <th>Edit</th>
+                  <th className="text-danger">Delete</th>
+                  <th>Preview</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.state.courseTypeNames.map((courseTypeName, idx) => (
+                  <tr key={idx}>
+                    <td>{idx + 1}</td>
+                    <td>{courseTypeName}</td>
+                    <td>
+                      <Link
+                        id={idx}
+                        to={
+                          "/syllabus/course_types/design_form/" +
+                          this.state.syllabusName +
+                          "/" +
+                          courseTypeName
+                        }
+                      >
+                        <Button
+                          size="sm"
+                          variant="outline-secondary"
+                          style={actionButtonStyle}
+                        >
+                          <FontAwesomeIcon icon={faPen} />
+                        </Button>
+                      </Link>
+                    </td>
+                    <td>
+                      <Button
+                        id={idx}
+                        size="sm"
+                        variant="danger"
+                        style={actionButtonStyle}
+                        onClick={this.deleteCourseType}
+                      >
+                        <FontAwesomeIcon id={idx} icon={faTrashAlt} />
+                      </Button>
+                    </td>
+                    <td>
+                      <Button
+                        size="sm"
+                        variant="outline-secondary"
+                        style={{
+                          paddingTop: "0px",
+                          height: "23px",
+                          width: "33px"
+                        }}
+                      >
+                        <FontAwesomeIcon icon={faEye} />
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
           </Col>
         </Row>
 
@@ -65,7 +183,7 @@ class SyllabusCourseTypeCreator extends Component {
                   type="submit"
                   style={{ fontSize: "12px", fontWeight: "600" }}
                 >
-                  <FontAwesomeIcon icon={faPlus} /> Course Type
+                  <FontAwesomeIcon icon={faPlusCircle} /> Course Type
                 </Button>
               </Form>
             </Card>
