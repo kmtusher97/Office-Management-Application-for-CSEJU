@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-import { Card } from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
 import FormSectionMenu from "./FormSectionMenu";
 
 import AppData from "../../AppData";
 import { Table } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashAlt, faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 
 class FormSectionTable extends Component {
   constructor(props) {
@@ -67,9 +69,7 @@ class FormSectionTable extends Component {
       this.state.syllabusName
     }/${this.state.courseTypeName}/${
       this.state.table.tableId
-    }/table/delete_field/${parseInt(event.target.id, 10) + 1}`;
-
-    console.log(url);
+    }/table/delete_field/${parseInt(event.currentTarget.id, 10) + 1}`;
 
     fetch(url, { method: "delete" })
       .then(res => res.json())
@@ -94,7 +94,7 @@ class FormSectionTable extends Component {
           >
             <input
               type="text"
-              className="form-control"
+              className="content-title"
               value={this.state.table.title}
               onChange={this.onChangeHandlerForTitle}
               onBlur={this.onBlurHandler}
@@ -106,7 +106,7 @@ class FormSectionTable extends Component {
               paddingBottom: "0px"
             }}
           >
-            <Table striped bordered hover size="sm">
+            <Table bordered>
               <tbody>
                 <tr>
                   {this.state.table.fields.map((field, fieldIdx) => (
@@ -115,30 +115,34 @@ class FormSectionTable extends Component {
                         <input
                           id={this.state.table.tableId + "_" + fieldIdx}
                           type="text"
-                          className="form-control"
+                          className="content-table-field-title"
                           value={field}
                           onChange={this.onChangeHandlerForFieldName}
                           onBlur={this.onBlurHandler}
-                          style={{ fontSize: "11px" }}
                         />
                       </div>
-                      <div>
-                        <button
+
+                      <div style={{ padding: "0px", paddingTop: "8px" }}>
+                        <Button
+                          id={fieldIdx}
+                          size="sm"
+                          variant="outline-danger"
+                          onClick={this.deleteFieldFromTable}
                           style={{
-                            border: "none",
-                            padding: 0,
-                            background: "none"
+                            height: "22px",
+                            width: "22px",
+                            padding: "0px",
+                            float: "right"
                           }}
                         >
                           <span>
-                            <i
+                            <FontAwesomeIcon
                               id={fieldIdx}
-                              onClick={this.deleteFieldFromTable}
-                              className="fa fa-trash"
-                              style={{ color: "red" }}
-                            ></i>
+                              icon={faTrashAlt}
+                              size="sm"
+                            />
                           </span>
-                        </button>
+                        </Button>
                       </div>
                     </td>
                   ))}
@@ -147,22 +151,23 @@ class FormSectionTable extends Component {
               <tfoot>
                 <tr>
                   <td colSpan={this.state.table.fields.length}>
-                    <div className="col-sm-2">
-                      <button
-                        onClick={this.addFieldIntoTable}
-                        style={{
-                          borderRadius: "10px",
-                          backgroundColor: "green"
-                        }}
-                      >
-                        <span>
-                          <i
-                            className="fa fa-plus"
-                            style={{ color: "white" }}
-                          ></i>
-                        </span>
-                      </button>
-                    </div>
+                    <Button
+                      size="sm"
+                      variant="success"
+                      onClick={this.addFieldIntoTable}
+                      style={{
+                        height: "25px",
+                        padding: "0px",
+                        paddingLeft: "5px",
+                        paddingRight: "5px",
+                        float: "left"
+                      }}
+                    >
+                      <span>
+                        <FontAwesomeIcon icon={faPlusSquare} />
+                      </span>
+                      <b>{" Add Field"}</b>
+                    </Button>
                   </td>
                 </tr>
               </tfoot>

@@ -76,8 +76,7 @@ class CourseInputFormCreator extends Component {
     return (
       <Container>
         <Row>
-          <Col md={1}></Col>
-          <Col md={10}>
+          <Col md={12}>
             <Card>
               <div style={{ paddingTop: "5px" }}>
                 <h6>Course Input Form for {this.state.courseTypeName}</h6>
@@ -85,12 +84,13 @@ class CourseInputFormCreator extends Component {
             </Card>
           </Col>
         </Row>
-        <Row style={{ paddingTop: "10px" }}>
-          <Col md={1}></Col>
-          <Col
-            md={10}
-            style={{ overflowY: "scroll", height: "580px", width: "auto" }}
-          >
+        <Row>
+          <Col md={12}>
+            <SideMenusForForm addFormSection={this.addFormSection} />
+          </Col>
+        </Row>
+        <Row style={{ overflowY: "scroll", height: "580px", width: "auto" }}>
+          <Col md={12}>
             {this.state.courseInputForm.courseInputFormSections.map(
               (formSection, idx) => (
                 <div key={idx} style={{ paddingTop: "10px" }}>
@@ -109,7 +109,6 @@ class CourseInputFormCreator extends Component {
               )
             )}
           </Col>
-          <SideMenusForForm addFormSection={this.addFormSection} />
         </Row>
       </Container>
     );

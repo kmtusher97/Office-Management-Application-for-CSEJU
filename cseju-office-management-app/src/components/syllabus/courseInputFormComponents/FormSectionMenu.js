@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { Row, Col, Container } from "react-bootstrap";
+import { Container, Button, Row, Col, Form } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const contents = ["TextArea", "Table"];
 
@@ -14,49 +16,59 @@ class FormSectionMenu extends Component {
   render() {
     return (
       <Container>
-        <Row
-          style={{
-            paddingTop: "0px",
-            paddingLeft: "5px",
-            paddingRight: "5px",
-            paddingBottom: "0px"
-          }}
-        >
-          <Col md={12}>
-            <hr style={{ border: "1px solid gray", padding: "0px" }} />
+        <Row style={{ paddingTop: "0px" }}>
+          <Col md={12} style={{ paddingTop: "0px", paddingBottom: "0px" }}>
+            <hr
+              style={{
+                border: "1px solid gray",
+                width: "100%",
+                paddingTop: "0px",
+                paddingBottom: "0px"
+              }}
+            />
           </Col>
         </Row>
 
-        <Row style={{ paddingBottom: "5px", alignContent: "right" }}>
+        <Row>
           <Col md={8}></Col>
           <Col md={2}>
-            <button
-              className="btn btn-md"
-              style={{ border: "none", padding: 0, background: "none" }}
+            <Button
+              id={this.props.menubarData.contentId}
+              size="sm"
+              variant="danger"
+              onClick={this.props.deleteFormSectionHandler}
+              style={{ height: "22px", width: "22px", padding: "0px" }}
             >
               <span>
-                <i
+                <FontAwesomeIcon
                   id={this.props.menubarData.contentId}
-                  className="fa fa-trash"
-                  style={{ color: "red" }}
-                  onClick={this.props.deleteFormSectionHandler}
-                ></i>
+                  icon={faTrash}
+                />
               </span>
-            </button>
+            </Button>
           </Col>
-          <Col md={2} style={{ paddingLeft: "0px", paddingRight: "10px" }}>
-            <select
-              id={this.props.menubarData.contentId}
-              defaultValue={this.state.selectedContentByUser}
-              onChange={this.props.handleSelector}
-              style={{ position: "relative" }}
-            >
-              {contents.map((content, idx) => (
-                <option key={idx} value={content}>
-                  {content}
-                </option>
-              ))}
-            </select>
+          <Col md={2}>
+            <Form.Group>
+              <Form.Control
+                as="select"
+                size="sm"
+                id={this.props.menubarData.contentId}
+                defaultValue={this.state.selectedContentByUser}
+                onChange={this.props.handleSelector}
+                style={{
+                  height: "22px",
+                  width: "60px",
+                  padding: "0px",
+                  fontSize: "12px"
+                }}
+              >
+                {contents.map((content, idx) => (
+                  <option key={idx} value={content}>
+                    {content}
+                  </option>
+                ))}
+              </Form.Control>
+            </Form.Group>
           </Col>
         </Row>
       </Container>

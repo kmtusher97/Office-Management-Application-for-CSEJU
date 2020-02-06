@@ -4,6 +4,8 @@ import FormSectionMenu from "./FormSectionMenu";
 
 import AppData from "../../AppData";
 
+import "./CourseInputForm.css";
+
 class FormSectionTextArea extends Component {
   constructor(props) {
     super(props);
@@ -49,7 +51,7 @@ class FormSectionTextArea extends Component {
           >
             <input
               type="text"
-              className="form-control"
+              className="content-title"
               value={this.state.textArea.title}
               onChange={this.onChangeHandlerForTitle}
               onBlur={this.onBlurHandlerForTitle}
@@ -62,7 +64,10 @@ class FormSectionTextArea extends Component {
             }}
           >
             <textarea
-              style={{ fontSize: "12px" }}
+              style={{
+                fontFamily: "Arial, Helvetica, sans-serif",
+                fontSize: "12px"
+              }}
               type="text"
               className="form-control"
               value={this.state.textArea.textBody}
