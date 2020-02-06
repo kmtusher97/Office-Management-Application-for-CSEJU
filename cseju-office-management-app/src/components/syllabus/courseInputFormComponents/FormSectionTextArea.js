@@ -5,6 +5,7 @@ import FormSectionMenu from "./FormSectionMenu";
 import AppData from "../../AppData";
 
 import "./CourseInputForm.css";
+import Axios from "axios";
 
 class FormSectionTextArea extends Component {
   constructor(props) {
@@ -30,11 +31,7 @@ class FormSectionTextArea extends Component {
 
     let url = `${AppData.restApiBaseUrl}/syllabus/create_form/${this.state.syllabusName}/${this.state.courseTypeName}/auto_save`;
 
-    fetch(url, {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(tmpCourseInputForm)
-    });
+    Axios.post(url, tmpCourseInputForm);
   };
 
   render() {

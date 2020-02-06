@@ -4,6 +4,7 @@ import FormSection from "./courseInputFormComponents/FormSection";
 import SideMenusForForm from "./courseInputFormComponents/SideMenusForForm";
 
 import AppData from "../AppData";
+import Axios from "axios";
 
 class CourseInputFormCreator extends Component {
   constructor(props) {
@@ -23,53 +24,54 @@ class CourseInputFormCreator extends Component {
     /** Get Form Structure JSON */
     let url = `${AppData.restApiBaseUrl}/syllabus/create_form/${this.state.syllabusName}/${this.state.courseTypeName}/get_form`;
 
-    fetch(url)
-      .then(res => res.json())
-      .then(result =>
+    Axios.get(url)
+      .then(response => response.data)
+      .then(data =>
         this.setState({
-          courseInputForm: result
+          courseInputForm: data
         })
       );
   }
 
-  deleteFormSection = event => {
-    let url = `${AppData.restApiBaseUrl}/syllabus/create_form/${this.state.syllabusName}/${this.state.courseTypeName}/delete_section/${event.target.id}`;
+  handleContentSelector = event => {
+    let id = event.currentTarget.id.split("_")[1];
+    let url = `${AppData.restApiBaseUrl}/syllabus/create_form/${this.state.syllabusName}/${this.state.courseTypeName}/${id}/change_selected/${event.target.value}`;
 
-    fetch(url, { method: "delete" })
-      .then(res => res.json())
-      .then(result =>
+    Axios.get(url)
+      .then(response => response.data)
+      .then(data => {
         this.setState({
-          courseInputForm: result
-        })
-      );
-
-    window.location.reload();
+          courseInputForm: data
+        });
+      });
   };
 
-  handleContentSelector = event => {
-    let url = `${AppData.restApiBaseUrl}/syllabus/create_form/${this.state.syllabusName}/${this.state.courseTypeName}/${event.target.id}/change_selected/${event.target.value}`;
+  deleteFormSection = event => {
+    event.preventDefault();
 
-    fetch(url)
-      .then(res => res.json())
-      .then(result =>
+    let url = `${AppData.restApiBaseUrl}/syllabus/create_form/${this.state.syllabusName}/${this.state.courseTypeName}/delete_section/${event.currentTarget.id}`;
+
+    Axios.delete(url, {})
+      .then(response => response.data)
+      .then(data => {
         this.setState({
-          courseInputForm: result
-        })
-      );
+          courseInputForm: data
+        });
+      });
   };
 
   addFormSection = event => {
+    event.preventDefault();
+
     let url = `${AppData.restApiBaseUrl}/syllabus/create_form/${this.state.syllabusName}/${this.state.courseTypeName}/add_new_section`;
 
-    fetch(url)
-      .then(res => res.json())
-      .then(result =>
+    Axios.get(url)
+      .then(response => response.data)
+      .then(data => {
         this.setState({
-          courseInputForm: result
-        })
-      );
-
-    event.preventDefault();
+          courseInputForm: data
+        });
+      });
   };
 
   render() {

@@ -6,6 +6,7 @@ import AppData from "../../AppData";
 import { Table } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faPlusSquare } from "@fortawesome/free-solid-svg-icons";
+import Axios from "axios";
 
 class FormSectionTable extends Component {
   constructor(props) {
@@ -35,17 +36,17 @@ class FormSectionTable extends Component {
   };
 
   addFieldIntoTable = event => {
+    event.preventDefault();
+
     let url = `${AppData.restApiBaseUrl}/syllabus/create_form/${this.state.syllabusName}/${this.state.courseTypeName}/${this.state.table.tableId}/table/add_field`;
 
-    fetch(url)
-      .then(res => res.json())
-      .then(result =>
+    Axios.get(url)
+      .then(response => response.data)
+      .then(data => {
         this.setState({
-          table: result.courseInputFormSections[this.state.index].table
-        })
-      );
-
-    event.preventDefault();
+          table: data.courseInputFormSections[this.state.index].table
+        });
+      });
   };
 
   /** auto save changes */
@@ -57,13 +58,10 @@ class FormSectionTable extends Component {
 
     let url = `${AppData.restApiBaseUrl}/syllabus/create_form/${this.state.syllabusName}/${this.state.courseTypeName}/auto_save`;
 
-    fetch(url, {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(tmpCourseInputForm)
-    });
+    Axios.post(url, tmpCourseInputForm);
   };
 
+  /**Delete Field */
   deleteFieldFromTable = event => {
     let url = `${AppData.restApiBaseUrl}/syllabus/create_form/${
       this.state.syllabusName
@@ -71,13 +69,13 @@ class FormSectionTable extends Component {
       this.state.table.tableId
     }/table/delete_field/${parseInt(event.currentTarget.id, 10) + 1}`;
 
-    fetch(url, { method: "delete" })
-      .then(res => res.json())
-      .then(result =>
+    Axios.delete(url, {})
+      .then(response => response.data)
+      .then(data => {
         this.setState({
-          table: result.courseInputFormSections[this.state.index].table
-        })
-      );
+          table: data.courseInputFormSections[this.state.index].table
+        });
+      });
   };
 
   render() {

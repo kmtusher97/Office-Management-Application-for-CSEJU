@@ -52,7 +52,7 @@ class FormSectionMenu extends Component {
               <Form.Control
                 as="select"
                 size="sm"
-                id={this.props.menubarData.contentId}
+                id={"contentSelector_" + this.props.menubarData.contentId}
                 defaultValue={this.state.selectedContentByUser}
                 onChange={this.props.handleSelector}
                 style={{
