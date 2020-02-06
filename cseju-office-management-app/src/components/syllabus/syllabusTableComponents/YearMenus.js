@@ -28,9 +28,18 @@ class YearMenus extends Component {
               />
             </span>
           </Button>
-          <Button size="sm" variant="outline-danger" style={actionButtonStyle}>
+          <Button
+            id={"year_" + this.props.yearData.yearId}
+            size="sm"
+            variant="outline-danger"
+            style={actionButtonStyle}
+            onClick={this.props.deleteYear}
+          >
             <span>
-              <FontAwesomeIcon icon={faTrashAlt} />
+              <FontAwesomeIcon
+                icon={faTrashAlt}
+                id={"year_" + this.props.yearData.yearId}
+              />
             </span>
           </Button>
         </ButtonGroup>

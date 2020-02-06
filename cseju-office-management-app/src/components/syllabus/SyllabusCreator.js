@@ -5,7 +5,11 @@ import Axios from "axios";
 import { Table, Button } from "react-bootstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPen,
+  faTrashAlt,
+  faPlusCircle
+} from "@fortawesome/free-solid-svg-icons";
 import YearMenus from "./syllabusTableComponents/YearMenus";
 import SemesterMenus from "./syllabusTableComponents/SemesterMenus";
 
@@ -39,6 +43,8 @@ class SyllabusCreator extends Component {
     this.onchangeHandlerForAddNewCourseForm = this.onchangeHandlerForAddNewCourseForm.bind(
       this
     );
+    this.addYear = this.addYear.bind(this);
+    this.deleteYear = this.deleteYear.bind(this);
     this.addSemester = this.addSemester.bind(this);
     this.deleteSemester = this.deleteSemester.bind(this);
   }
@@ -122,7 +128,6 @@ class SyllabusCreator extends Component {
           syllabusXmlObj: parser.parseFromString(data, "text/xml")
         });
         this.parseXMLData();
-        console.log(this.state);
       });
   }
 
@@ -148,6 +153,37 @@ class SyllabusCreator extends Component {
       rowSpan += this.getSemesterRowSpan(yearId, i);
     }
     return rowSpan;
+  };
+
+  addYear = event => {
+    let url = `${Appdata.restApiBaseUrl}/syllabus/edit/${this.state.syllabusName}/add/year`;
+
+    const parser = new DOMParser();
+
+    Axios.get(url)
+      .then(response => response.data)
+      .then(data => {
+        this.setState({
+          syllabusXmlObj: parser.parseFromString(data, "text/xml")
+        });
+        this.parseXMLData();
+      });
+  };
+
+  deleteYear = event => {
+    let yearId = event.currentTarget.id.split("_")[1];
+    let url = `${Appdata.restApiBaseUrl}/syllabus/edit/${this.state.syllabusName}/delete/year/${yearId}`;
+
+    const parser = new DOMParser();
+
+    Axios.delete(url, {})
+      .then(response => response.data)
+      .then(data => {
+        this.setState({
+          syllabusXmlObj: parser.parseFromString(data, "text/xml")
+        });
+        this.parseXMLData();
+      });
   };
 
   addSemester = event => {
@@ -207,6 +243,7 @@ class SyllabusCreator extends Component {
                         <YearMenus
                           yearData={{ yearId: year.yearId }}
                           addSemester={this.addSemester}
+                          deleteYear={this.deleteYear}
                         />
                       </td>
 
@@ -383,6 +420,27 @@ class SyllabusCreator extends Component {
               })}
             </tbody>
           </Table>
+          <table style={{ border: "none" }}>
+            <tbody>
+              <tr>
+                <td>
+                  <Button
+                    size="sm"
+                    variant="outline-secondary"
+                    style={{
+                      float: "left"
+                    }}
+                    onClick={this.addYear}
+                  >
+                    <span>
+                      <FontAwesomeIcon icon={faPlusCircle} />
+                    </span>
+                    {" Add Year"}
+                  </Button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         <div className="container"></div>
       </div>
