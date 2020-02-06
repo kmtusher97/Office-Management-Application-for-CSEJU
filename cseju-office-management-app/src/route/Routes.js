@@ -1,7 +1,9 @@
 import React from "react";
 
 const Dashboard = React.lazy(() => import("../components/views/Dashboard"));
-const Syllabus = React.lazy(() => import("../components/views/Syllabus"));
+const Syllabus = React.lazy(() =>
+  import("../components/syllabus/SyllabusViewer")
+);
 const Routine = React.lazy(() => import("../components/views/Routine"));
 const Notification = React.lazy(() =>
   import("../components/views/Notification")
@@ -9,16 +11,16 @@ const Notification = React.lazy(() =>
 
 /** Syllabus Components */
 const SyllabusCreator = React.lazy(() =>
-  import("../components/views/SyllabusCreator")
+  import("../components/syllabus/SyllabusCreator")
 );
 const SyllabusCourseTypeCreator = React.lazy(() =>
-  import("../components/views/SyllabusCourseTypeCreator")
+  import("../components/syllabus/SyllabusCourseTypeCreator")
 );
 const SyllabusCourseEditor = React.lazy(() =>
-  import("../components/views/SyllabusCourseEditor")
+  import("../components/syllabus/SyllabusCourseEditor")
 );
 const SyllabusViewer = React.lazy(() =>
-  import("../components/views/SyllabusViewer")
+  import("../components/syllabus/SyllabusViewer")
 );
 
 const CourseInputFormCreator = React.lazy(() =>
