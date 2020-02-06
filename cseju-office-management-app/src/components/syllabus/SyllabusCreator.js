@@ -40,6 +40,7 @@ class SyllabusCreator extends Component {
       this
     );
     this.addSemester = this.addSemester.bind(this);
+    this.deleteSemester = this.deleteSemester.bind(this);
   }
 
   getCourseTypes = () => {
@@ -75,7 +76,7 @@ class SyllabusCreator extends Component {
     let tmpSemesters = [];
     for (let i = 0; i < semestersXML.length; i++) {
       tmpSemesters.push({
-        semesterId: i + 1,
+        semesterId: semestersXML[i].getAttribute("id"),
         courses: this.getCourses(semestersXML[i])
       });
     }
@@ -87,7 +88,10 @@ class SyllabusCreator extends Component {
     let tmpYears = [];
     for (let i = 0; i < yearsXML.length; i++) {
       let tmpSemesters = this.getSemesters(yearsXML[i]);
-      tmpYears.push(tmpSemesters);
+      tmpYears.push({
+        yearId: yearsXML[i].getAttribute("id"),
+        semesters: tmpSemesters
+      });
     }
     this.setState({
       years: tmpYears
@@ -118,6 +122,7 @@ class SyllabusCreator extends Component {
           syllabusXmlObj: parser.parseFromString(data, "text/xml")
         });
         this.parseXMLData();
+        console.log(this.state);
       });
   }
 
@@ -130,13 +135,16 @@ class SyllabusCreator extends Component {
   };
 
   getSemesterRowSpan = (yearId, semesterId) => {
-    return Math.max(1, this.state.years[yearId][semesterId].courses.length);
+    return Math.max(
+      1,
+      this.state.years[yearId].semesters[semesterId].courses.length
+    );
   };
 
   getYearRowSpan = yearId => {
-    if (this.state.years[yearId].length === 0) return 1;
+    if (this.state.years[yearId].semesters.length === 0) return 1;
     let rowSpan = 0;
-    for (let i = 0; i < this.state.years[yearId].length; i++) {
+    for (let i = 0; i < this.state.years[yearId].semesters.length; i++) {
       rowSpan += this.getSemesterRowSpan(yearId, i);
     }
     return rowSpan;
@@ -149,6 +157,25 @@ class SyllabusCreator extends Component {
     const parser = new DOMParser();
 
     Axios.get(url)
+      .then(response => response.data)
+      .then(data => {
+        this.setState({
+          syllabusXmlObj: parser.parseFromString(data, "text/xml")
+        });
+        this.parseXMLData();
+      });
+  };
+
+  deleteSemester = event => {
+    let tmpId = event.currentTarget.id.split("_");
+    let yearId = tmpId[1];
+    let semesterId = tmpId[3];
+
+    let url = `${Appdata.restApiBaseUrl}/syllabus/edit/${this.state.syllabusName}/${yearId}/delete/semester/${semesterId}`;
+
+    const parser = new DOMParser();
+
+    Axios.delete(url, {})
       .then(response => response.data)
       .then(data => {
         this.setState({
@@ -174,26 +201,34 @@ class SyllabusCreator extends Component {
                   <React.Fragment key={Math.floor(Math.random() * 1000)}>
                     <tr key={Math.floor(Math.random() * 1000)}>
                       <td rowSpan={this.getYearRowSpan(yearId)}>
-                        {yearId +
-                          1 +
-                          this.getNumberSuffix(yearId + 1) +
+                        {year.yearId +
+                          this.getNumberSuffix(year.yearId) +
                           " Year "}
                         <YearMenus
-                          yearData={{ yearId: yearId + 1 }}
+                          yearData={{ yearId: year.yearId }}
                           addSemester={this.addSemester}
                         />
                       </td>
 
-                      {year.length > 0 ? (
+                      {year.semesters.length > 0 ? (
                         <td rowSpan={this.getSemesterRowSpan(yearId, 0)}>
-                          {1 + this.getNumberSuffix(1) + " Semester "}
-                          <SemesterMenus />
+                          {year.semesters[0].semesterId +
+                            this.getNumberSuffix(year.semesters[0].semesterId) +
+                            " Semester "}
+                          <SemesterMenus
+                            semesterData={{
+                              yearId: year.yearId,
+                              semesterId: year.semesters[0].semesterId
+                            }}
+                            deleteSemester={this.deleteSemester}
+                          />
                         </td>
                       ) : null}
 
-                      {year.length > 0 && year[0].courses.length > 0 ? (
+                      {year.semesters.length > 0 &&
+                      year.semesters[0].courses.length > 0 ? (
                         <React.Fragment key={Math.floor(Math.random() * 1000)}>
-                          <td>{year[0].courses[0].courseCode}</td>
+                          <td>{year.semesters[0].courses[0].courseCode}</td>
                           <td>
                             <Button
                               size="sm"
@@ -220,8 +255,9 @@ class SyllabusCreator extends Component {
                       ) : null}
                     </tr>
 
-                    {year.length > 0 && year[0].courses.length > 1
-                      ? year[0].courses.map((course, courseIdx) =>
+                    {year.semesters.length > 0 &&
+                    year.semesters[0].courses.length > 1
+                      ? year.semesters[0].courses.map((course, courseIdx) =>
                           courseIdx > 0 ? (
                             <tr key={Math.floor(Math.random() * 1000)}>
                               <td>{course.courseCode}</td>
@@ -252,8 +288,8 @@ class SyllabusCreator extends Component {
                         )
                       : null}
 
-                    {year.length > 1
-                      ? year.map((semester, semesterIdx) =>
+                    {year.semesters.length > 1
+                      ? year.semesters.map((semester, semesterIdx) =>
                           semesterIdx > 0 ? (
                             <React.Fragment
                               key={Math.floor(Math.random() * 1000)}
@@ -262,11 +298,16 @@ class SyllabusCreator extends Component {
                                 <td
                                   rowSpan={Math.max(1, semester.courses.length)}
                                 >
-                                  {semesterIdx +
-                                    1 +
-                                    this.getNumberSuffix(semesterIdx + 1) +
+                                  {semester.semesterId +
+                                    this.getNumberSuffix(semester.semesterId) +
                                     " Semester "}
-                                  <SemesterMenus />
+                                  <SemesterMenus
+                                    semesterData={{
+                                      yearId: year.yearId,
+                                      semesterId: semester.semesterId
+                                    }}
+                                    deleteSemester={this.deleteSemester}
+                                  />
                                 </td>
                                 {semester.courses.length > 0 ? (
                                   <React.Fragment

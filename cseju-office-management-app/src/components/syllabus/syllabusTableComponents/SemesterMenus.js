@@ -13,7 +13,7 @@ class SemesterMenus extends Component {
   render() {
     return (
       <React.Fragment>
-        <ButtonGroup>
+        <ButtonGroup style={{ float: "right" }}>
           <Button
             size="sm"
             variant="outline-secondary"
@@ -23,9 +23,28 @@ class SemesterMenus extends Component {
               <FontAwesomeIcon icon={faPlusSquare} />
             </span>
           </Button>
-          <Button size="sm" variant="outline-danger" style={actionButtonStyle}>
+          <Button
+            id={
+              "year_" +
+              this.props.semesterData.yearId +
+              "_semester_" +
+              this.props.semesterData.semesterId
+            }
+            size="sm"
+            variant="outline-danger"
+            style={actionButtonStyle}
+            onClick={this.props.deleteSemester}
+          >
             <span>
-              <FontAwesomeIcon icon={faTrashAlt} />
+              <FontAwesomeIcon
+                icon={faTrashAlt}
+                id={
+                  "year_" +
+                  this.props.semesterData.yearId +
+                  "_semester_" +
+                  this.props.semesterData.semesterId
+                }
+              />
             </span>
           </Button>
         </ButtonGroup>

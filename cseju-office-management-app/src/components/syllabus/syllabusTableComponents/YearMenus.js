@@ -13,7 +13,7 @@ class YearMenus extends Component {
   render() {
     return (
       <React.Fragment>
-        <ButtonGroup>
+        <ButtonGroup style={{ float: "right" }}>
           <Button
             id={"year_" + this.props.yearData.yearId}
             size="sm"
