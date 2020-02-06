@@ -6,6 +6,7 @@ import { faEye, faPen, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 import AppData from "../AppData";
+import Axios from "axios";
 
 const actionButtonStyle = {
   paddingTop: "0px",
@@ -17,8 +18,7 @@ export default class CourseTypeTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      courseTypeNames: [],
-      selectedCourseTypeId: "0"
+      courseTypeNames: []
     };
 
     this.deleteCourseType = this.deleteCourseType.bind(this);
@@ -28,22 +28,28 @@ export default class CourseTypeTable extends Component {
     /** returns all the course type names */
     let url = `${AppData.restApiBaseUrl}/syllabus/course_type/${this.props.syllabusName}/get/all`;
 
-    fetch(url)
-      .then(res => res.json())
-      .then(result =>
+    Axios.get(url)
+      .then(response => response.data)
+      .then(data => {
         this.setState({
-          courseTypeNames: result
-        })
-      );
+          courseTypeNames: data
+        });
+      });
   }
 
   deleteCourseType(event) {
+    event.preventDefault();
     let url = `${AppData.restApiBaseUrl}/syllabus/course_type/edit/${
       this.props.syllabusName
     }/delete/course_type/${this.state.courseTypeNames[event.currentTarget.id]}`;
 
-    fetch(url, { method: "delete" }); /**method default GET */
-    window.location.reload();
+    Axios.delete(url)
+      .then(response => response.data)
+      .then(data => {
+        this.setState({
+          courseTypeNames: data
+        });
+      });
   }
 
   render() {
