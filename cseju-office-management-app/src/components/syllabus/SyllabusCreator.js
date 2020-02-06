@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import Appdata from "../AppData";
+import Axios from "axios";
 
 class SyllabusCreator extends Component {
   constructor(props) {
@@ -90,17 +91,17 @@ class SyllabusCreator extends Component {
     let url = `${Appdata.restApiBaseUrl}/syllabus/get/${this.state.syllabusName}`;
 
     const parser = new DOMParser();
-    fetch(url)
-      .then(res => res.text())
-      .then(xmlResult => {
-        this.setState({
-          syllabusXmlObj: parser.parseFromString(xmlResult, "text/xml")
-        });
 
+    Axios.get(url)
+      .then(response => response.data)
+      .then(data => {
+        this.setState({
+          syllabusXmlObj: parser.parseFromString(data, "text/xml")
+        });
         this.getBasicInfo();
         this.getCourseTypes();
         this.getYears();
-        console.log(this.state.years);
+        console.log(this.state);
       });
   }
 
