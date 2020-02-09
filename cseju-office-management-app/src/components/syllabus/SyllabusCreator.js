@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import Appdata from "../AppData";
 import Axios from "axios";
-import { Table, Button } from "react-bootstrap";
+import { Table, Button, Form, Row, Col } from "react-bootstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -12,6 +12,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import YearMenus from "./syllabusTableComponents/YearMenus";
 import SemesterMenus from "./syllabusTableComponents/SemesterMenus";
+import CourseMenus from "./syllabusTableComponents/CourseMenus";
 
 const actionButtonStyle = {
   padding: "0px",
@@ -35,9 +36,10 @@ class SyllabusCreator extends Component {
         courseCode: "",
         courseTitle: "",
         courseCredit: "",
-        year: "",
-        semester: ""
-      }
+        yearId: "",
+        semesterId: ""
+      },
+      displayAddCourseForm: "none"
     };
 
     this.onchangeHandlerForAddNewCourseForm = this.onchangeHandlerForAddNewCourseForm.bind(
@@ -47,6 +49,7 @@ class SyllabusCreator extends Component {
     this.deleteYear = this.deleteYear.bind(this);
     this.addSemester = this.addSemester.bind(this);
     this.deleteSemester = this.deleteSemester.bind(this);
+    this.addCourse = this.addCourse.bind(this);
   }
 
   getCourseTypes = () => {
@@ -221,13 +224,83 @@ class SyllabusCreator extends Component {
       });
   };
 
+  displayAddNewCourseForm = (yearId, semesterId) => {
+    this.setState({
+      displayAddCourseForm: "block"
+    });
+  };
+
+  addCourse = (yearId, semesterId) => {
+    this.setState({
+      newCourse: {
+        yearId: yearId,
+        semesterId: semesterId
+      }
+    });
+    this.displayAddNewCourseForm(yearId, semesterId);
+  };
+
   /**Add new course form */
-  onchangeHandlerForAddNewCourseForm = event => {};
+  onchangeHandlerForAddNewCourseForm = event => {
+    let tmpCourse = this.state.newCourse;
+    tmpCourse.courseCode = event.target.value;
+    this.setState({
+      newCourse: tmpCourse
+    });
+  };
+
+  saveNewCourse = event => {
+    event.preventDefault();
+
+    let url = `${Appdata.restApiBaseUrl}/syllabus/edit/${this.state.syllabusName}/${this.state.newCourse.yearId}/${this.state.newCourse.semesterId}/add/course`;
+    const parser = new DOMParser();
+    Axios.post(url, this.state.newCourse)
+      .then(response => response.data)
+      .then(data => {
+        this.setState({
+          syllabusXmlObj: parser.parseFromString(data, "text/xml")
+        });
+        this.parseXMLData();
+      });
+
+    setTimeout(() => {
+      this.setState({
+        displayAddCourseForm: "none"
+      });
+    }, 600);
+  };
 
   render() {
     return (
       <div className="container">
         <h6>{"Edit Syllabus"}</h6>
+        <div style={{ display: this.state.displayAddCourseForm }}>
+          <Form onSubmit={this.saveNewCourse}>
+            <Form.Group as={Row}>
+              <Form.Label column sm="2">
+                Course Code
+              </Form.Label>
+              <Col sm="7">
+                <Form.Control
+                  type="text"
+                  placeholder="Course Code"
+                  size="sm"
+                  style={{
+                    border: "none",
+                    borderBottom: "2px solid gray"
+                  }}
+                  onChange={this.onchangeHandlerForAddNewCourseForm}
+                  required
+                />
+              </Col>
+              <Col sm="3">
+                <Button variant="primary" type="submit" size="sm">
+                  Add Course
+                </Button>
+              </Col>
+            </Form.Group>
+          </Form>
+        </div>
         <div>
           <Table size="sm" bordered>
             <thead></thead>
@@ -258,6 +331,7 @@ class SyllabusCreator extends Component {
                               semesterId: year.semesters[0].semesterId
                             }}
                             deleteSemester={this.deleteSemester}
+                            addCourse={this.addCourse}
                           />
                         </td>
                       ) : null}
@@ -265,28 +339,9 @@ class SyllabusCreator extends Component {
                       {year.semesters.length > 0 &&
                       year.semesters[0].courses.length > 0 ? (
                         <React.Fragment key={Math.floor(Math.random() * 1000)}>
-                          <td>{year.semesters[0].courses[0].courseCode}</td>
                           <td>
-                            <Button
-                              size="sm"
-                              variant="outline-secondary"
-                              style={actionButtonStyle}
-                            >
-                              <span>
-                                <FontAwesomeIcon icon={faPen} />
-                              </span>
-                            </Button>
-                          </td>
-                          <td>
-                            <Button
-                              size="sm"
-                              variant="outline-danger"
-                              style={actionButtonStyle}
-                            >
-                              <span>
-                                <FontAwesomeIcon icon={faTrashAlt} />
-                              </span>
-                            </Button>
+                            {year.semesters[0].courses[0].courseCode}
+                            <CourseMenus />
                           </td>
                         </React.Fragment>
                       ) : null}
@@ -297,28 +352,9 @@ class SyllabusCreator extends Component {
                       ? year.semesters[0].courses.map((course, courseIdx) =>
                           courseIdx > 0 ? (
                             <tr key={Math.floor(Math.random() * 1000)}>
-                              <td>{course.courseCode}</td>
                               <td>
-                                <Button
-                                  size="sm"
-                                  variant="outline-secondary"
-                                  style={actionButtonStyle}
-                                >
-                                  <span>
-                                    <FontAwesomeIcon icon={faPen} />
-                                  </span>
-                                </Button>
-                              </td>
-                              <td>
-                                <Button
-                                  size="sm"
-                                  variant="outline-danger"
-                                  style={actionButtonStyle}
-                                >
-                                  <span>
-                                    <FontAwesomeIcon icon={faTrashAlt} />
-                                  </span>
-                                </Button>
+                                {course.courseCode}
+                                <CourseMenus />
                               </td>
                             </tr>
                           ) : null
@@ -344,34 +380,16 @@ class SyllabusCreator extends Component {
                                       semesterId: semester.semesterId
                                     }}
                                     deleteSemester={this.deleteSemester}
+                                    addCourse={this.addCourse}
                                   />
                                 </td>
                                 {semester.courses.length > 0 ? (
                                   <React.Fragment
                                     key={Math.floor(Math.random() * 1000)}
                                   >
-                                    <td>{semester.courses[0].courseCode}</td>
                                     <td>
-                                      <Button
-                                        size="sm"
-                                        variant="outline-secondary"
-                                        style={actionButtonStyle}
-                                      >
-                                        <span>
-                                          <FontAwesomeIcon icon={faPen} />
-                                        </span>
-                                      </Button>
-                                    </td>
-                                    <td>
-                                      <Button
-                                        size="sm"
-                                        variant="outline-danger"
-                                        style={actionButtonStyle}
-                                      >
-                                        <span>
-                                          <FontAwesomeIcon icon={faTrashAlt} />
-                                        </span>
-                                      </Button>
+                                      {semester.courses[0].courseCode}
+                                      <CourseMenus />
                                     </td>
                                   </React.Fragment>
                                 ) : null}
@@ -382,30 +400,9 @@ class SyllabusCreator extends Component {
                                       <tr
                                         key={Math.floor(Math.random() * 1000)}
                                       >
-                                        <td>{course.courseCode}</td>
                                         <td>
-                                          <Button
-                                            size="sm"
-                                            variant="outline-secondary"
-                                            style={actionButtonStyle}
-                                          >
-                                            <span>
-                                              <FontAwesomeIcon icon={faPen} />
-                                            </span>
-                                          </Button>
-                                        </td>
-                                        <td>
-                                          <Button
-                                            size="sm"
-                                            variant="outline-danger"
-                                            style={actionButtonStyle}
-                                          >
-                                            <span>
-                                              <FontAwesomeIcon
-                                                icon={faTrashAlt}
-                                              />
-                                            </span>
-                                          </Button>
+                                          {course.courseCode}
+                                          <CourseMenus />
                                         </td>
                                       </tr>
                                     ) : null
