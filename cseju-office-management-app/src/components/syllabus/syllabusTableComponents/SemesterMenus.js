@@ -18,11 +18,17 @@ class SemesterMenus extends Component {
             size="sm"
             variant="outline-secondary"
             style={actionButtonStyle}
+            onClick={this.props.addCourse.bind(
+              this,
+              this.props.semesterData.yearId,
+              this.props.semesterData.semesterId
+            )}
           >
             <span>
               <FontAwesomeIcon icon={faPlusSquare} />
             </span>
           </Button>
+
           <Button
             id={
               "year_" +
