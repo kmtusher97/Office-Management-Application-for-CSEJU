@@ -289,8 +289,8 @@ class SyllabusCreator extends Component {
                     border: "none",
                     borderBottom: "2px solid gray"
                   }}
-                  onChange={this.onchangeHandlerForAddNewCourseForm}
                   required
+                  onChange={this.onchangeHandlerForAddNewCourseForm}
                 />
               </Col>
               <Col sm="3">
