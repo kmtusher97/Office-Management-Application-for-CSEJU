@@ -5,7 +5,7 @@ import Axios from "axios";
 import { Table, Button, Form, Row, Col } from "react-bootstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusCircle, faBorderNone } from "@fortawesome/free-solid-svg-icons";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import YearMenus from "./syllabusTableComponents/YearMenus";
 import SemesterMenus from "./syllabusTableComponents/SemesterMenus";
 import CourseMenus from "./syllabusTableComponents/CourseMenus";
