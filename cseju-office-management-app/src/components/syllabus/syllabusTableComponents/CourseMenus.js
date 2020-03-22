@@ -24,7 +24,17 @@ class CourseMenus extends Component {
             </span>
           </Button>
 
-          <Button size="sm" variant="outline-danger" style={actionButtonStyle}>
+          <Button
+            size="sm"
+            variant="outline-danger"
+            style={actionButtonStyle}
+            onClick={this.props.deleteCourse.bind(
+              this,
+              this.props.courseData.yearId,
+              this.props.courseData.semesterId,
+              this.props.courseData.courseCode
+            )}
+          >
             <span>
               <FontAwesomeIcon icon={faTrashAlt} />
             </span>

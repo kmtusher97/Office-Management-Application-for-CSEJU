@@ -5,20 +5,10 @@ import Axios from "axios";
 import { Table, Button, Form, Row, Col } from "react-bootstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPen,
-  faTrashAlt,
-  faPlusCircle
-} from "@fortawesome/free-solid-svg-icons";
+import { faPlusCircle, faBorderNone } from "@fortawesome/free-solid-svg-icons";
 import YearMenus from "./syllabusTableComponents/YearMenus";
 import SemesterMenus from "./syllabusTableComponents/SemesterMenus";
 import CourseMenus from "./syllabusTableComponents/CourseMenus";
-
-const actionButtonStyle = {
-  padding: "0px",
-  height: "22px",
-  width: "22px"
-};
 
 class SyllabusCreator extends Component {
   constructor(props) {
@@ -50,6 +40,7 @@ class SyllabusCreator extends Component {
     this.addSemester = this.addSemester.bind(this);
     this.deleteSemester = this.deleteSemester.bind(this);
     this.addCourse = this.addCourse.bind(this);
+    this.deleteCourse = this.deleteCourse.bind(this);
   }
 
   getCourseTypes = () => {
@@ -252,22 +243,42 @@ class SyllabusCreator extends Component {
   saveNewCourse = event => {
     event.preventDefault();
 
-    let url = `${Appdata.restApiBaseUrl}/syllabus/edit/${this.state.syllabusName}/${this.state.newCourse.yearId}/${this.state.newCourse.semesterId}/add/course`;
-    const parser = new DOMParser();
-    Axios.post(url, this.state.newCourse)
-      .then(response => response.data)
-      .then(data => {
-        this.setState({
-          syllabusXmlObj: parser.parseFromString(data, "text/xml")
+    if (
+      this.state.newCourse.courseCode !== "" &&
+      this.state.newCourse.courseCode !== undefined
+    ) {
+      let url = `${Appdata.restApiBaseUrl}/syllabus/edit/${this.state.syllabusName}/${this.state.newCourse.yearId}/${this.state.newCourse.semesterId}/add/course`;
+      const parser = new DOMParser();
+      Axios.post(url, this.state.newCourse)
+        .then(response => response.data)
+        .then(data => {
+          this.setState({
+            syllabusXmlObj: parser.parseFromString(data, "text/xml")
+          });
+          this.parseXMLData();
         });
-        this.parseXMLData();
-      });
+    }
 
-    setTimeout(() => {
-      this.setState({
-        displayAddCourseForm: "none"
-      });
-    }, 600);
+    window.location.reload();
+  };
+
+  deleteCourse = (yearId, semesterId, courseCode) => {
+    if (
+      yearId !== undefined &&
+      semesterId !== undefined &&
+      courseCode !== undefined
+    ) {
+      let url = `${Appdata.restApiBaseUrl}/syllabus/edit/${this.state.syllabusName}/${yearId}/${semesterId}/delete/course/${courseCode}`;
+      const parser = new DOMParser();
+      Axios.delete(url, null)
+        .then(response => response.data)
+        .then(data => {
+          this.setState({
+            syllabusXmlObj: parser.parseFromString(data, "text/xml")
+          });
+          this.parseXMLData();
+        });
+    }
   };
 
   render() {
@@ -341,7 +352,15 @@ class SyllabusCreator extends Component {
                         <React.Fragment key={Math.floor(Math.random() * 1000)}>
                           <td>
                             {year.semesters[0].courses[0].courseCode}
-                            <CourseMenus />
+                            <CourseMenus
+                              courseData={{
+                                yearId: year.yearId,
+                                semesterId: year.semesters[0].semesterId,
+                                courseCode:
+                                  year.semesters[0].courses[0].courseCode
+                              }}
+                              deleteCourse={this.deleteCourse}
+                            />
                           </td>
                         </React.Fragment>
                       ) : null}
@@ -354,7 +373,14 @@ class SyllabusCreator extends Component {
                             <tr key={Math.floor(Math.random() * 1000)}>
                               <td>
                                 {course.courseCode}
-                                <CourseMenus />
+                                <CourseMenus
+                                  courseData={{
+                                    yearId: year.yearId,
+                                    semesterId: year.semesters[0].semesterId,
+                                    courseCode: course.courseCode
+                                  }}
+                                  deleteCourse={this.deleteCourse}
+                                />
                               </td>
                             </tr>
                           ) : null
@@ -389,7 +415,15 @@ class SyllabusCreator extends Component {
                                   >
                                     <td>
                                       {semester.courses[0].courseCode}
-                                      <CourseMenus />
+                                      <CourseMenus
+                                        courseData={{
+                                          yearId: year.yearId,
+                                          semesterId: semester.semesterId,
+                                          courseCode:
+                                            semester.courses[0].courseCode
+                                        }}
+                                        deleteCourse={this.deleteCourse}
+                                      />
                                     </td>
                                   </React.Fragment>
                                 ) : null}
@@ -402,7 +436,14 @@ class SyllabusCreator extends Component {
                                       >
                                         <td>
                                           {course.courseCode}
-                                          <CourseMenus />
+                                          <CourseMenus
+                                            courseData={{
+                                              yearId: year.yearId,
+                                              semesterId: semester.semesterId,
+                                              courseCode: course.courseCode
+                                            }}
+                                            deleteCourse={this.deleteCourse}
+                                          />
                                         </td>
                                       </tr>
                                     ) : null
